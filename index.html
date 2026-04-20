@@ -5,20 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pylex Group</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   :root {
-    --black: #111;
+    --black: #0a0a0f;
     --white: #fff;
-    --gray-bg: #f7f7f7;
+    --gray-bg: #f4f5f9;
     --gray-light: #eee;
-    --gray-text: #666;
+    --gray-text: #555;
     --gray-mid: #999;
-    --accent: #2563eb;
-    --accent-light: #eff6ff;
-    --border: #e5e5e5;
+    --accent: #4f6ef7;
+    --accent2: #a855f7;
+    --accent-light: #eef2ff;
+    --border: #e5e7eb;
     --font-en: 'Inter', sans-serif;
     --font-jp: 'Noto Sans JP', sans-serif;
   }
@@ -27,10 +28,50 @@
 
   body {
     font-family: var(--font-jp);
-    color: var(--black);
+    color: #1a1a2e;
     background: var(--white);
     line-height: 1.7;
     font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* ===== SCROLL REVEAL ===== */
+  .reveal {
+    opacity: 0;
+    transform: translateY(48px);
+    transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1);
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+  .reveal-delay-5 { transition-delay: 0.5s; }
+  .reveal-left {
+    opacity: 0;
+    transform: translateX(-40px);
+    transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1);
+  }
+  .reveal-right {
+    opacity: 0;
+    transform: translateX(40px);
+    transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1);
+  }
+  .reveal-left.visible, .reveal-right.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  .reveal-scale {
+    opacity: 0;
+    transform: scale(0.92);
+    transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1);
+  }
+  .reveal-scale.visible {
+    opacity: 1;
+    transform: scale(1);
   }
 
   /* ===== NAV ===== */
@@ -39,7 +80,7 @@
     top: 0;
     z-index: 100;
     background: rgba(255,255,255,0.95);
-    backdrop-filter: blur(8px);
+    backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--border);
     padding: 0 40px;
     display: flex;
@@ -47,15 +88,12 @@
     align-items: center;
     height: 64px;
   }
-  .nav-logo {
-    font-family: var(--font-en);
-    font-weight: 600;
-    font-size: 1.1rem;
-    letter-spacing: 0.05em;
-    color: var(--black);
-    text-decoration: none;
+  .nav-logo img {
+    height: 40px;
+    width: auto;
+    object-fit: contain;
+    display: block;
   }
-  .nav-logo span { color: var(--accent); }
   .nav-links {
     display: flex;
     gap: 32px;
@@ -68,90 +106,168 @@
     font-weight: 400;
     transition: color 0.2s;
   }
-  .nav-links a:hover { color: var(--black); }
+  .nav-links a:hover { color: var(--accent); }
   .nav-contact {
     font-family: var(--font-en);
     font-size: 0.8rem;
-    font-weight: 500;
-    background: var(--black);
+    font-weight: 600;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
     color: var(--white);
     padding: 8px 20px;
     text-decoration: none;
-    border-radius: 4px;
-    transition: background 0.2s;
+    border-radius: 6px;
+    transition: opacity 0.2s;
   }
-  .nav-contact:hover { background: #333; }
+  .nav-contact:hover { opacity: 0.85; }
 
   /* ===== HERO ===== */
   .hero {
-    padding: 100px 40px 80px;
-    max-width: 1100px;
-    margin: 0 auto;
+    background: var(--black);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 80px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  /* star-like bg dots */
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(1px 1px at 15% 20%, rgba(160,130,255,0.6) 0%, transparent 100%),
+      radial-gradient(1px 1px at 80% 10%, rgba(100,180,255,0.6) 0%, transparent 100%),
+      radial-gradient(1px 1px at 60% 70%, rgba(160,130,255,0.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 30% 80%, rgba(100,180,255,0.4) 0%, transparent 100%),
+      radial-gradient(2px 2px at 90% 50%, rgba(200,160,255,0.5) 0%, transparent 100%),
+      radial-gradient(1px 1px at 5%  60%, rgba(120,200,255,0.4) 0%, transparent 100%),
+      radial-gradient(600px 600px at 20% 50%, rgba(79,110,247,0.12) 0%, transparent 70%),
+      radial-gradient(600px 600px at 80% 50%, rgba(168,85,247,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-logo {
+    width: min(360px, 80vw);
+    margin-bottom: 32px;
+    position: relative;
+    animation: heroLogoIn 1s cubic-bezier(0.22,1,0.36,1) 0.2s both;
+    filter: drop-shadow(0 0 40px rgba(100,150,255,0.35));
+  }
+  @keyframes heroLogoIn {
+    from { opacity: 0; transform: scale(0.85) translateY(20px); }
+    to   { opacity: 1; transform: scale(1) translateY(0); }
   }
   .hero-tag {
     display: inline-block;
     font-family: var(--font-en);
     font-size: 0.72rem;
     font-weight: 500;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--accent);
-    background: var(--accent-light);
-    padding: 4px 12px;
+    color: #a5b4fc;
+    background: rgba(79,110,247,0.15);
+    border: 1px solid rgba(79,110,247,0.3);
+    padding: 5px 14px;
     border-radius: 100px;
-    margin-bottom: 28px;
+    margin-bottom: 24px;
+    animation: fadeUp 0.8s cubic-bezier(0.22,1,0.36,1) 0.6s both;
   }
   .hero h1 {
-    font-size: clamp(2.4rem, 5vw, 4rem);
+    font-size: clamp(2rem, 5vw, 3.6rem);
     font-weight: 700;
     line-height: 1.25;
     letter-spacing: -0.02em;
-    margin-bottom: 24px;
+    color: var(--white);
+    margin-bottom: 20px;
+    animation: fadeUp 0.8s cubic-bezier(0.22,1,0.36,1) 0.75s both;
   }
-  .hero h1 .accent { color: var(--accent); }
+  .hero h1 .grad {
+    background: linear-gradient(90deg, #7eb3ff, #c084fc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
   .hero-sub {
-    font-size: 1rem;
-    color: var(--gray-text);
-    max-width: 560px;
-    line-height: 1.9;
+    font-size: 0.95rem;
+    color: rgba(255,255,255,0.55);
+    max-width: 520px;
+    line-height: 2;
     margin-bottom: 40px;
-    font-weight: 300;
+    animation: fadeUp 0.8s cubic-bezier(0.22,1,0.36,1) 0.9s both;
   }
   .hero-actions {
     display: flex;
     gap: 12px;
     flex-wrap: wrap;
+    justify-content: center;
+    animation: fadeUp 0.8s cubic-bezier(0.22,1,0.36,1) 1.05s both;
   }
   .btn-main {
-    background: var(--accent);
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
     color: #fff;
-    font-size: 0.85rem;
-    font-weight: 500;
-    padding: 12px 28px;
-    border-radius: 4px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    padding: 13px 30px;
+    border-radius: 6px;
     text-decoration: none;
-    transition: opacity 0.2s;
+    transition: opacity 0.2s, transform 0.2s;
   }
-  .btn-main:hover { opacity: 0.85; }
+  .btn-main:hover { opacity: 0.88; transform: translateY(-1px); }
   .btn-sub {
-    background: transparent;
-    color: var(--black);
-    font-size: 0.85rem;
+    background: rgba(255,255,255,0.07);
+    color: rgba(255,255,255,0.8);
+    font-size: 0.88rem;
     font-weight: 400;
-    padding: 12px 28px;
-    border-radius: 4px;
-    border: 1px solid var(--border);
+    padding: 13px 30px;
+    border-radius: 6px;
+    border: 1px solid rgba(255,255,255,0.15);
     text-decoration: none;
-    transition: border-color 0.2s;
+    transition: background 0.2s;
   }
-  .btn-sub:hover { border-color: #aaa; }
+  .btn-sub:hover { background: rgba(255,255,255,0.12); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* scroll indicator */
+  .hero-scroll {
+    position: absolute;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    animation: fadeUp 1s 1.4s both;
+  }
+  .hero-scroll span {
+    font-family: var(--font-en);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+  }
+  .scroll-dot {
+    width: 1px; height: 40px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.4), transparent);
+    animation: scrollDot 2s ease-in-out infinite;
+  }
+  @keyframes scrollDot {
+    0%,100% { opacity: 0.3; transform: scaleY(1); }
+    50%      { opacity: 1;   transform: scaleY(1.2); }
+  }
 
   /* ===== STATS BAR ===== */
   .stats-bar {
-    background: var(--gray-bg);
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-    padding: 32px 40px;
+    background: var(--black);
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 40px;
   }
   .stats-inner {
     max-width: 1100px;
@@ -161,207 +277,267 @@
     gap: 24px;
     text-align: center;
   }
-  .stat-item {}
   .stat-num {
     font-family: var(--font-en);
-    font-size: 2rem;
-    font-weight: 600;
-    color: var(--black);
+    font-size: 2.2rem;
+    font-weight: 700;
+    background: linear-gradient(90deg, #7eb3ff, #c084fc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
     line-height: 1;
   }
   .stat-label {
-    font-size: 0.75rem;
-    color: var(--gray-mid);
-    margin-top: 6px;
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.4);
+    margin-top: 8px;
   }
 
   /* ===== SECTION COMMON ===== */
-  section {
-    padding: 80px 40px;
-  }
-  .section-inner {
+  section.light { background: var(--white); }
+  section.gray  { background: var(--gray-bg); }
+
+  .section-wrap {
     max-width: 1100px;
     margin: 0 auto;
-  }
-  .section-header {
-    margin-bottom: 48px;
+    padding: 90px 40px;
   }
   .section-label {
     font-family: var(--font-en);
     font-size: 0.72rem;
-    font-weight: 500;
-    letter-spacing: 0.1em;
+    font-weight: 600;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 12px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 10px;
   }
   .section-title {
-    font-size: 1.8rem;
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
     font-weight: 700;
     letter-spacing: -0.01em;
+    color: #1a1a2e;
+    margin-bottom: 16px;
   }
   .section-desc {
-    margin-top: 12px;
-    font-size: 0.9rem;
+    font-size: 0.88rem;
     color: var(--gray-text);
-    max-width: 520px;
-    line-height: 1.9;
+    max-width: 500px;
+    line-height: 2;
   }
 
   /* ===== ABOUT ===== */
-  .about-bg { background: var(--white); }
   .about-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 80px;
+    gap: 72px;
     align-items: center;
   }
   .about-text p {
-    font-size: 0.9rem;
+    font-size: 0.88rem;
     color: var(--gray-text);
-    line-height: 2;
-    margin-bottom: 16px;
+    line-height: 2.1;
+    margin-bottom: 14px;
   }
-  .about-features {
+  .about-img-wrap {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  .about-img-wrap img {
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    border-radius: 16px;
+    display: block;
+  }
+  /* Unsplash placeholder via CSS gradient for fallback */
+  .about-img-placeholder {
+    width: 100%;
+    aspect-ratio: 4/3;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+  }
+  .feature-list {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 14px;
+    margin-top: 28px;
   }
   .feature-item {
-    background: var(--gray-bg);
-    border-radius: 8px;
-    padding: 20px 24px;
     display: flex;
-    gap: 16px;
+    gap: 14px;
     align-items: flex-start;
+    background: var(--gray-bg);
+    border-radius: 10px;
+    padding: 16px 18px;
+    border: 1px solid var(--border);
   }
-  .feature-icon {
-    font-size: 1.2rem;
+  .f-icon {
+    font-size: 1.1rem;
     flex-shrink: 0;
-    margin-top: 2px;
+    margin-top: 1px;
   }
   .feature-item strong {
     display: block;
-    font-size: 0.85rem;
+    font-size: 0.82rem;
     font-weight: 600;
-    margin-bottom: 4px;
+    margin-bottom: 3px;
+    color: #1a1a2e;
   }
   .feature-item span {
-    font-size: 0.78rem;
+    font-size: 0.76rem;
     color: var(--gray-text);
-    line-height: 1.7;
+    line-height: 1.75;
   }
 
   /* ===== DIVISIONS ===== */
-  .divisions-bg { background: var(--gray-bg); }
+  .div-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 48px;
+  }
   .divisions-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
+    gap: 18px;
   }
   .div-card {
     background: var(--white);
     border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 28px 24px;
-    transition: box-shadow 0.2s, transform 0.2s;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: box-shadow 0.25s, transform 0.25s;
   }
   .div-card:hover {
-    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(79,110,247,0.12);
+    transform: translateY(-3px);
+  }
+  .div-card-img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+    display: block;
+    background: linear-gradient(135deg, #1a1a2e, #302b63);
+  }
+  .div-card-img-placeholder {
+    width: 100%;
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+  }
+  .div-card-body {
+    padding: 20px 20px 22px;
   }
   .div-card-head {
     display: flex;
     align-items: center;
-    gap: 12px;
-    margin-bottom: 12px;
+    gap: 10px;
+    margin-bottom: 10px;
   }
   .div-icon {
-    width: 36px; height: 36px;
+    width: 32px; height: 32px;
     background: var(--accent-light);
     border-radius: 6px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1rem;
+    font-size: 0.95rem;
     flex-shrink: 0;
   }
   .div-name {
-    font-size: 0.9rem;
-    font-weight: 600;
-    line-height: 1.3;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: #1a1a2e;
+    line-height: 1.35;
   }
   .div-desc {
-    font-size: 0.78rem;
+    font-size: 0.76rem;
     color: var(--gray-text);
-    line-height: 1.8;
+    line-height: 1.85;
   }
   .div-tag {
     display: inline-block;
     margin-top: 12px;
     font-family: var(--font-en);
-    font-size: 0.65rem;
-    font-weight: 500;
+    font-size: 0.62rem;
+    font-weight: 600;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--accent);
-    background: var(--accent-light);
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    border: 1px solid rgba(79,110,247,0.2);
     padding: 2px 10px;
     border-radius: 100px;
   }
 
   /* ===== CONTACT ===== */
-  .contact-bg { background: var(--white); }
-  .contact-box {
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 60px 48px;
-    max-width: 700px;
+  .contact-wrap {
+    max-width: 680px;
     margin: 0 auto;
+    padding: 90px 40px;
     text-align: center;
   }
+  .contact-box {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 56px 48px;
+    box-shadow: 0 4px 40px rgba(79,110,247,0.07);
+  }
   .contact-box h2 {
-    font-size: 1.6rem;
+    font-size: 1.7rem;
     font-weight: 700;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
+    color: #1a1a2e;
   }
   .contact-box p {
-    font-size: 0.88rem;
+    font-size: 0.86rem;
     color: var(--gray-text);
+    line-height: 2;
     margin-bottom: 36px;
-    line-height: 1.9;
   }
   .contact-buttons {
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    align-items: center;
+    gap: 10px;
+    align-items: stretch;
   }
   .contact-btn {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
-    width: 100%;
-    max-width: 360px;
     padding: 14px 20px;
-    border-radius: 6px;
-    font-size: 0.85rem;
+    border-radius: 8px;
+    font-size: 0.86rem;
     font-weight: 500;
     text-decoration: none;
-    transition: opacity 0.2s;
+    transition: opacity 0.2s, transform 0.2s;
+    font-family: var(--font-jp);
   }
-  .contact-btn:hover { opacity: 0.85; }
+  .contact-btn:hover { opacity: 0.86; transform: translateY(-1px); }
   .contact-btn.google {
-    background: var(--accent);
+    background: linear-gradient(135deg, var(--accent), #6366f1);
     color: #fff;
   }
   .contact-btn.mail {
-    background: var(--black);
+    background: #1a1a2e;
     color: #fff;
   }
   .contact-btn.insta {
-    background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+    background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
     color: #fff;
   }
   .contact-btn svg {
@@ -369,44 +545,45 @@
     fill: currentColor;
     flex-shrink: 0;
   }
-  .contact-divider {
-    font-size: 0.75rem;
+  .divider-text {
+    font-size: 0.72rem;
     color: var(--gray-mid);
-    margin: 4px 0;
+    padding: 2px 0;
   }
 
   /* ===== FOOTER ===== */
   footer {
     background: var(--black);
-    color: rgba(255,255,255,0.5);
-    padding: 36px 40px;
+    color: rgba(255,255,255,0.35);
+    padding: 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
     gap: 16px;
   }
-  .footer-logo {
-    font-family: var(--font-en);
-    font-weight: 600;
-    font-size: 1rem;
-    color: #fff;
-    letter-spacing: 0.05em;
+  .footer-logo img {
+    height: 32px;
+    width: auto;
+    object-fit: contain;
+    opacity: 0.85;
   }
-  .footer-logo span { color: var(--accent); }
-  footer p { font-size: 0.75rem; }
+  footer p { font-size: 0.72rem; }
 
   /* ===== RESPONSIVE ===== */
   @media (max-width: 768px) {
     nav { padding: 0 20px; }
     .nav-links { display: none; }
-    .hero { padding: 60px 20px 48px; }
-    .stats-inner { grid-template-columns: repeat(2, 1fr); }
     .about-grid { grid-template-columns: 1fr; gap: 40px; }
     .divisions-grid { grid-template-columns: 1fr; }
-    section { padding: 60px 20px; }
-    .contact-box { padding: 40px 24px; }
+    .section-wrap { padding: 64px 20px; }
+    .contact-wrap { padding: 64px 20px; }
+    .contact-box { padding: 36px 22px; }
+    .stats-inner { grid-template-columns: repeat(2, 1fr); padding: 0; }
+    .stats-bar { padding: 36px 20px; }
     footer { padding: 28px 20px; flex-direction: column; text-align: center; }
+    .div-header { flex-direction: column; align-items: flex-start; gap: 8px; }
+    .hero { padding: 80px 24px 100px; }
   }
 </style>
 </head>
@@ -414,7 +591,9 @@
 
 <!-- NAV -->
 <nav>
-  <a class="nav-logo" href="#">PYLEX<span>.</span>GROUP</a>
+  <a class="nav-logo" href="#">
+    <img src="logo.png" alt="Pylex Group">
+  </a>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#divisions">事業紹介</a></li>
@@ -424,39 +603,43 @@
 </nav>
 
 <!-- HERO -->
-<section class="hero" style="padding-top:100px; padding-bottom:80px;">
+<section class="hero">
+  <img class="hero-logo" src="logo.png" alt="Pylex">
   <p class="hero-tag">SNS × Marketing × Monetization</p>
   <h1>
     デジタルで、<br>
-    ビジネスの<span class="accent">新しい当たり前</span>を<br>
+    ビジネスの<span class="grad">新しい当たり前</span>を<br>
     つくる。
   </h1>
   <p class="hero-sub">
-    Pylex Groupは、SNSマーケティングを中心に複数の事業を展開するスタートアップ企業です。
-    若年層へのリーチ力とスピード感のある実行力を強みに、デジタル領域での収益化・集客支援を行っています。
+    Pylex Groupは、SNSマーケティングを中心に複数の事業を展開するスタートアップ企業です。若年層へのリーチ力とスピード感のある実行力を強みに、デジタル領域での収益化・集客支援を行っています。
   </p>
   <div class="hero-actions">
     <a href="#divisions" class="btn-main">事業紹介を見る</a>
     <a href="#contact" class="btn-sub">お問い合わせ</a>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-dot"></div>
+    <span>Scroll</span>
   </div>
 </section>
 
 <!-- STATS -->
 <div class="stats-bar">
   <div class="stats-inner">
-    <div class="stat-item">
+    <div class="stat-item reveal">
       <div class="stat-num">7+</div>
       <div class="stat-label">事業部門</div>
     </div>
-    <div class="stat-item">
+    <div class="stat-item reveal reveal-delay-1">
       <div class="stat-num">30K</div>
       <div class="stat-label">対応インフルエンサー規模</div>
     </div>
-    <div class="stat-item">
+    <div class="stat-item reveal reveal-delay-2">
       <div class="stat-num">SNS</div>
       <div class="stat-label">マーケティングを軸に</div>
     </div>
-    <div class="stat-item">
+    <div class="stat-item reveal reveal-delay-3">
       <div class="stat-num">∞</div>
       <div class="stat-label">成長の可能性</div>
     </div>
@@ -464,43 +647,52 @@
 </div>
 
 <!-- ABOUT -->
-<section class="about-bg" id="about">
-  <div class="section-inner">
+<section class="light" id="about">
+  <div class="section-wrap">
     <div class="about-grid">
-      <div class="about-text">
+      <div class="reveal-left">
         <p class="section-label">About</p>
-        <h2 class="section-title" style="margin-bottom:24px;">Pylex Groupについて</h2>
-        <p>
+        <h2 class="section-title">Pylex Groupについて</h2>
+        <p class="about-text" style="font-size:0.88rem;color:var(--gray-text);line-height:2.1;margin-bottom:14px;">
           「SNS × マーケティング × 収益化」を軸に、複数の事業を横断的に連携させています。各事業は独立しながらも相互にシナジーを生み出し、企業や個人の収益最大化を支援します。
         </p>
-        <p>
-          現在は立ち上げフェーズで少人数チームで運営中。スピードと実行力を重視し、トライアンドエラーを繰り返しながら事業を拡大しています。
+        <p class="about-text" style="font-size:0.88rem;color:var(--gray-text);line-height:2.1;margin-bottom:0;">
+          現在は少人数チームでスピーディーに事業を拡大中。将来的には大規模なマーケティング会社として成長することを目標としています。
         </p>
-        <p>
-          将来的には、インフルエンサー事業とSNSマーケティングを軸に、企業案件の拡大とコンサルティング事業の強化を目指し、大規模なマーケティング会社として成長することを目標としています。
-        </p>
+        <div class="feature-list">
+          <div class="feature-item">
+            <div class="f-icon">🚀</div>
+            <div>
+              <strong>スピードと実行力</strong>
+              <span>トライアンドエラーを繰り返しながら事業を高速で拡大。アイデアをすぐにかたちにします。</span>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="f-icon">🔗</div>
+            <div>
+              <strong>事業横断のシナジー</strong>
+              <span>各事業が連携し合い、グループ全体として最大の効果を生み出します。</span>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="f-icon">📱</div>
+            <div>
+              <strong>若年層へのリーチ</strong>
+              <span>SNSを活用した集客・収益化を得意とし、デジタルネイティブな市場を攻略します。</span>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="about-features">
-        <div class="feature-item">
-          <div class="feature-icon">🚀</div>
-          <div>
-            <strong>スピードと実行力</strong>
-            <span>トライアンドエラーを繰り返しながら事業を高速で拡大。アイデアをすぐにかたちにする文化があります。</span>
-          </div>
-        </div>
-        <div class="feature-item">
-          <div class="feature-icon">🔗</div>
-          <div>
-            <strong>事業横断のシナジー</strong>
-            <span>各事業が連携し合い、グループ全体として最大の効果を生み出します。</span>
-          </div>
-        </div>
-        <div class="feature-item">
-          <div class="feature-icon">📱</div>
-          <div>
-            <strong>若年層へのリーチ</strong>
-            <span>デジタルネイティブな市場で高いリーチ力を持ち、SNSを活用した集客・収益化を得意とします。</span>
-          </div>
+      <div class="reveal-right">
+        <!-- About image: チームワーク・デジタルマーケティングのイメージ -->
+        <div class="about-img-wrap">
+          <img
+            src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80"
+            alt="チームワーク"
+            loading="lazy"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+          >
+          <div class="about-img-placeholder" style="display:none;">🌐</div>
         </div>
       </div>
     </div>
@@ -508,113 +700,179 @@
 </section>
 
 <!-- DIVISIONS -->
-<section class="divisions-bg" id="divisions">
-  <div class="section-inner">
-    <div class="section-header">
-      <p class="section-label">Divisions</p>
-      <h2 class="section-title">事業紹介</h2>
-      <p class="section-desc">SNSとデジタルを軸に、多角的な事業でビジネスをトータルサポート。</p>
+<section class="gray" id="divisions">
+  <div class="section-wrap">
+    <div class="div-header reveal">
+      <div>
+        <p class="section-label">Divisions</p>
+        <h2 class="section-title">事業紹介</h2>
+      </div>
+      <p class="section-desc" style="max-width:280px; text-align:right;">SNSとデジタルを軸に、多角的な事業でビジネスをトータルサポート。</p>
     </div>
     <div class="divisions-grid">
-      <div class="div-card">
-        <div class="div-card-head">
-          <div class="div-icon">👥</div>
-          <div class="div-name">インフルエンサー事業部</div>
+
+      <!-- 01 インフルエンサー -->
+      <div class="div-card reveal reveal-delay-1">
+        <img class="div-card-img"
+          src="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=600&q=75"
+          alt="インフルエンサー" loading="lazy"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="div-card-img-placeholder" style="display:none; background:linear-gradient(135deg,#1a1a2e,#302b63);">👥</div>
+        <div class="div-card-body">
+          <div class="div-card-head">
+            <div class="div-icon">👥</div>
+            <div class="div-name">インフルエンサー事業部</div>
+          </div>
+          <p class="div-desc">マイクロインフルエンサー（1,000〜30,000人規模）を中心に企業とのベストマッチングを実現。キャスティングからSNSプロモーション支援まで一貫対応。</p>
+          <span class="div-tag">Influencer</span>
         </div>
-        <p class="div-desc">マイクロインフルエンサー（1,000〜30,000人規模）を中心とした企業とのベストマッチングを実現。キャスティングからSNSプロモーション支援まで一貫対応。</p>
-        <span class="div-tag">Influencer</span>
       </div>
-      <div class="div-card">
-        <div class="div-card-head">
-          <div class="div-icon">🎬</div>
-          <div class="div-name">クリエイティブ事業部</div>
+
+      <!-- 02 クリエイティブ -->
+      <div class="div-card reveal reveal-delay-2">
+        <img class="div-card-img"
+          src="https://images.unsplash.com/photo-1536240478700-b869ad10a2ab?w=600&q=75"
+          alt="クリエイティブ" loading="lazy"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="div-card-img-placeholder" style="display:none; background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);">🎬</div>
+        <div class="div-card-body">
+          <div class="div-card-head">
+            <div class="div-icon">🎬</div>
+            <div class="div-name">クリエイティブ事業部</div>
+          </div>
+          <p class="div-desc">AIを活用した動画制作・SNS運用・企業PR動画・Webサイト制作まで。トレンドを捉えたコンテンツで企業ブランドを強化します。</p>
+          <span class="div-tag">Creative</span>
         </div>
-        <p class="div-desc">AIを活用した動画制作・SNS運用・企業PR動画・Webサイト制作まで。トレンドを捉えたコンテンツで企業ブランドを強化します。</p>
-        <span class="div-tag">Creative</span>
       </div>
-      <div class="div-card">
-        <div class="div-card-head">
-          <div class="div-icon">📊</div>
-          <div class="div-name">アフィリエイト事業部</div>
+
+      <!-- 03 アフィリエイト -->
+      <div class="div-card reveal reveal-delay-3">
+        <img class="div-card-img"
+          src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=75"
+          alt="アフィリエイト" loading="lazy"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="div-card-img-placeholder" style="display:none; background:linear-gradient(135deg,#134e5e,#71b280);">📊</div>
+        <div class="div-card-body">
+          <div class="div-card-head">
+            <div class="div-icon">📊</div>
+            <div class="div-name">アフィリエイト事業部</div>
+          </div>
+          <p class="div-desc">TikTok・SNSを活用したアフィリエイト事業。コンテンツ制作から収益化まで一貫して行い、再現性のある収益モデルを構築します。</p>
+          <span class="div-tag">Affiliate</span>
         </div>
-        <p class="div-desc">TikTok・SNSを活用したアフィリエイト事業。コンテンツ制作から収益化まで一貫して行い、再現性のある収益モデルを構築します。</p>
-        <span class="div-tag">Affiliate</span>
       </div>
-      <div class="div-card">
-        <div class="div-card-head">
-          <div class="div-icon">💡</div>
-          <div class="div-name">コンサルティング事業部</div>
+
+      <!-- 04 コンサルティング -->
+      <div class="div-card reveal reveal-delay-1">
+        <img class="div-card-img"
+          src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&q=75"
+          alt="コンサルティング" loading="lazy"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="div-card-img-placeholder" style="display:none; background:linear-gradient(135deg,#1a1a2e,#4f6ef7);">💡</div>
+        <div class="div-card-body">
+          <div class="div-card-head">
+            <div class="div-icon">💡</div>
+            <div class="div-name">コンサルティング事業部</div>
+          </div>
+          <p class="div-desc">SNS運用・AI活用・アフィリエイト収益化のノウハウを法人・個人向けに提供。実績ベースの実践的支援を行います。</p>
+          <span class="div-tag">Consulting</span>
         </div>
-        <p class="div-desc">SNS運用・AI活用・アフィリエイト収益化のノウハウを法人・個人向けに提供。実績ベースの実践的支援を行います。</p>
-        <span class="div-tag">Consulting</span>
       </div>
-      <div class="div-card">
-        <div class="div-card-head">
-          <div class="div-icon">📡</div>
-          <div class="div-name">営業代行事業部</div>
+
+      <!-- 05 営業代行 -->
+      <div class="div-card reveal reveal-delay-2">
+        <img class="div-card-img"
+          src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=600&q=75"
+          alt="営業代行" loading="lazy"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="div-card-img-placeholder" style="display:none; background:linear-gradient(135deg,#232526,#414345);">📡</div>
+        <div class="div-card-body">
+          <div class="div-card-head">
+            <div class="div-icon">📡</div>
+            <div class="div-name">営業代行事業部</div>
+          </div>
+          <p class="div-desc">通信商材（光回線等）の訪問営業を中心とした営業代行。確実な実績と成果にコミットします。</p>
+          <span class="div-tag">Sales Agency</span>
         </div>
-        <p class="div-desc">通信商材（光回線等）の訪問営業を中心とした営業代行。確実な実績と成果にコミットします。</p>
-        <span class="div-tag">Sales Agency</span>
       </div>
-      <div class="div-card">
-        <div class="div-card-head">
-          <div class="div-icon">👗</div>
-          <div class="div-name">アパレル事業部</div>
+
+      <!-- 06 アパレル -->
+      <div class="div-card reveal reveal-delay-3">
+        <img class="div-card-img"
+          src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=600&q=75"
+          alt="アパレル" loading="lazy"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="div-card-img-placeholder" style="display:none; background:linear-gradient(135deg,#2c003e,#8e0e00);">👗</div>
+        <div class="div-card-body">
+          <div class="div-card-head">
+            <div class="div-icon">👗</div>
+            <div class="div-name">アパレル事業部</div>
+          </div>
+          <p class="div-desc">独自ブランド「Pylex Legend」を展開予定。グループの世界観をファッションで体現する新たな価値を創造します。</p>
+          <span class="div-tag">Pylex Legend</span>
         </div>
-        <p class="div-desc">独自ブランド「Pylex Legend」を展開予定。グループの世界観をファッションで体現する新たな価値を創造します。</p>
-        <span class="div-tag">Pylex Legend</span>
       </div>
-      <div class="div-card">
-        <div class="div-card-head">
-          <div class="div-icon">🏙️</div>
-          <div class="div-name">不動産事業部</div>
+
+      <!-- 07 不動産 -->
+      <div class="div-card reveal reveal-delay-1">
+        <img class="div-card-img"
+          src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&q=75"
+          alt="不動産" loading="lazy"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="div-card-img-placeholder" style="display:none; background:linear-gradient(135deg,#1a1a2e,#2d4a8a);">🏙️</div>
+        <div class="div-card-body">
+          <div class="div-card-head">
+            <div class="div-icon">🏙️</div>
+            <div class="div-name">不動産事業部</div>
+          </div>
+          <p class="div-desc">不動産仲介を軸に、将来的には売買事業への展開も視野に。デジタルマーケティングと不動産を融合した新モデルを構築します。</p>
+          <span class="div-tag">Real Estate</span>
         </div>
-        <p class="div-desc">不動産仲介を軸に、将来的には売買事業への展開も視野に。デジタルマーケティングと不動産を融合した新モデルを構築します。</p>
-        <span class="div-tag">Real Estate</span>
       </div>
-      <div class="div-card">
-        <div class="div-card-head">
-          <div class="div-icon">🎭</div>
-          <div class="div-name">エンターテイメント事業部</div>
+
+      <!-- 08 エンターテイメント -->
+      <div class="div-card reveal reveal-delay-2">
+        <img class="div-card-img"
+          src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=600&q=75"
+          alt="エンターテイメント" loading="lazy"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="div-card-img-placeholder" style="display:none; background:linear-gradient(135deg,#1f003e,#9b00d3);">🎭</div>
+        <div class="div-card-body">
+          <div class="div-card-head">
+            <div class="div-icon">🎭</div>
+            <div class="div-name">エンターテイメント事業部</div>
+          </div>
+          <p class="div-desc">イベント運営・クラブ運営・大規模イベント企画。SNSとリアルを融合した体験型エンターテイメントを創出します。</p>
+          <span class="div-tag">Entertainment</span>
         </div>
-        <p class="div-desc">イベント運営・クラブ運営・大規模イベント企画。SNSとリアルを融合した体験型エンターテイメントを創出します。</p>
-        <span class="div-tag">Entertainment</span>
       </div>
+
     </div>
   </div>
 </section>
 
 <!-- CONTACT -->
-<section class="contact-bg" id="contact">
-  <div class="section-inner">
-    <div class="contact-box">
+<section class="light" id="contact">
+  <div class="contact-wrap">
+    <div class="contact-box reveal-scale">
       <h2>お問い合わせ</h2>
       <p>
         事業提携・インフルエンサー登録・お仕事のご依頼など、<br>
         お気軽にご連絡ください。
       </p>
       <div class="contact-buttons">
-        <!-- Google Form -->
         <a href="https://docs.google.com/forms/d/e/YOUR_FORM_ID/viewform" target="_blank" class="contact-btn google">
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-          </svg>
+          <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
           Googleフォームで問い合わせる
         </a>
-        <p class="contact-divider">または</p>
-        <!-- Mail -->
+        <p class="divider-text">または</p>
         <a href="mailto:info.pylexlegend@gmail.com" class="contact-btn mail">
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-          </svg>
+          <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
           info.pylexlegend@gmail.com
         </a>
-        <p class="contact-divider">SNSでも受け付けています</p>
-        <!-- Instagram -->
+        <p class="divider-text">SNSでも受け付けています</p>
         <a href="https://www.instagram.com/pylexgroup" target="_blank" class="contact-btn insta">
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-          </svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
           InstagramのDMで問い合わせる
         </a>
       </div>
@@ -624,9 +882,24 @@
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-logo">PYLEX<span>.</span>GROUP</div>
+  <div class="footer-logo">
+    <img src="logo.png" alt="Pylex Group">
+  </div>
   <p>© 2025 Pylex Group. All rights reserved.</p>
 </footer>
 
+<script>
+  // Intersection Observer for scroll reveal
+  const targets = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  targets.forEach(el => observer.observe(el));
+</script>
 </body>
 </html>
