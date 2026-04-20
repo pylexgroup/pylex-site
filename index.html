@@ -5,15 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pylex Group</title>
 
-<!-- フォント -->
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
 
 <style>
 body {
   margin:0;
   font-family: 'Poppins', sans-serif;
-  background:#000;
+  background:linear-gradient(180deg,#000,#111,#1a1a1a);
   color:#fff;
+  scroll-behavior:smooth;
 }
 
 /* ナビ */
@@ -25,6 +25,8 @@ body {
   justify-content:flex-end;
   padding:20px 40px;
   z-index:1000;
+  background:rgba(0,0,0,0.6);
+  backdrop-filter:blur(10px);
 }
 
 .nav a {
@@ -46,11 +48,27 @@ body {
   flex-direction:column;
   justify-content:center;
   align-items:center;
-  padding:60px 20px;
+  padding:100px 20px;
   text-align:center;
+  opacity:0;
+  transform:translateY(50px);
+  transition:1s;
+}
+
+.section.show {
+  opacity:1;
+  transform:translateY(0);
+}
+
+.section:nth-child(even) {
+  background:#111;
 }
 
 /* HERO */
+.hero {
+  background: radial-gradient(circle at center, #111, #000);
+}
+
 .hero img {
   width:250px;
   margin-bottom:20px;
@@ -63,13 +81,7 @@ body {
 
 .hero h1 {
   font-size:48px;
-  font-weight:600;
-}
-
-/* ABOUT */
-.about p {
-  max-width:600px;
-  line-height:1.8;
+  letter-spacing:2px;
 }
 
 /* SERVICE */
@@ -92,13 +104,15 @@ body {
   border-color:#fff;
 }
 
-/* CONTACT */
+/* ボタン */
 .button {
   margin-top:20px;
   padding:12px 30px;
   border:1px solid #fff;
   text-decoration:none;
   color:#fff;
+  display:inline-block;
+  min-width:180px;
 }
 
 .button:hover {
@@ -106,7 +120,15 @@ body {
   color:#000;
 }
 
-/* スマホ対応 */
+/* CONTACT */
+.contact-buttons {
+  display:flex;
+  justify-content:center;
+  gap:20px;
+  flex-wrap:wrap;
+}
+
+/* スマホ */
 @media(max-width:768px){
   .hero h1 {
     font-size:28px;
@@ -142,13 +164,12 @@ body {
 </section>
 
 <!-- ABOUT -->
-<section id="about" class="section about">
+<section id="about" class="section">
   <h2>ABOUT</h2>
   <p>
     Pylex GroupはSNSマーケティング・インフルエンサー事業を中心に、
     複数事業を展開するクリエイティブ企業です。
   </p>
-
   <a class="button" href="about.html">詳細を見る</a>
 </section>
 
@@ -170,14 +191,30 @@ body {
 <section id="contact" class="section">
   <h2>CONTACT</h2>
 
-  <a class="button" href="mailto:info.pylexgroup@gmail.com">
-    メールで問い合わせ
-  </a>
+  <div class="contact-buttons">
+    <a class="button" href="mailto:info.pylexgroup@gmail.com">
+      メールで問い合わせ
+    </a>
 
-  <a class="button" href="https://www.instagram.com/pylexgroup" target="_blank">
-    Instagram
-  </a>
+    <a class="button" href="https://www.instagram.com/pylexgroup" target="_blank">
+      Instagram
+    </a>
+  </div>
 </section>
+
+<script>
+const sections = document.querySelectorAll('.section');
+
+window.addEventListener('scroll', () => {
+  const trigger = window.innerHeight * 0.85;
+  sections.forEach(section => {
+    const top = section.getBoundingClientRect().top;
+    if(top < trigger){
+      section.classList.add('show');
+    }
+  });
+});
+</script>
 
 </body>
 </html>
