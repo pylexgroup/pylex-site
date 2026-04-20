@@ -2,15 +2,18 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pylex Group</title>
+
+<!-- フォント -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
 
 <style>
 body {
   margin:0;
-  font-family:sans-serif;
+  font-family: 'Poppins', sans-serif;
   background:#000;
   color:#fff;
-  text-align:center;
 }
 
 /* ナビ */
@@ -18,54 +21,163 @@ body {
   position:fixed;
   top:0;
   width:100%;
-  background:#000;
-  padding:15px;
+  display:flex;
+  justify-content:flex-end;
+  padding:20px 40px;
+  z-index:1000;
 }
 
 .nav a {
-  margin:0 20px;
-  color:#fff;
+  margin-left:30px;
   text-decoration:none;
-  border-bottom:1px solid transparent;
+  color:#fff;
+  font-weight:600;
+  transition:0.3s;
 }
 
 .nav a:hover {
-  border-bottom:1px solid #fff;
+  opacity:0.6;
 }
 
-/* ヒーロー */
-.hero {
-  height:100vh;
+/* セクション */
+.section {
+  min-height:100vh;
   display:flex;
   flex-direction:column;
   justify-content:center;
   align-items:center;
+  padding:60px 20px;
+  text-align:center;
 }
 
-img {
+/* HERO */
+.hero img {
   width:250px;
+  margin-bottom:20px;
   animation: float 3s infinite;
 }
 
 @keyframes float {
   50% {transform: translateY(-15px);}
 }
+
+.hero h1 {
+  font-size:48px;
+  font-weight:600;
+}
+
+/* ABOUT */
+.about p {
+  max-width:600px;
+  line-height:1.8;
+}
+
+/* SERVICE */
+.services {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:20px;
+  width:100%;
+  max-width:900px;
+}
+
+.card {
+  border:1px solid #333;
+  padding:20px;
+  transition:0.3s;
+}
+
+.card:hover {
+  transform:translateY(-10px);
+  border-color:#fff;
+}
+
+/* CONTACT */
+.button {
+  margin-top:20px;
+  padding:12px 30px;
+  border:1px solid #fff;
+  text-decoration:none;
+  color:#fff;
+}
+
+.button:hover {
+  background:#fff;
+  color:#000;
+}
+
+/* スマホ対応 */
+@media(max-width:768px){
+  .hero h1 {
+    font-size:28px;
+  }
+
+  .nav {
+    justify-content:center;
+    padding:15px;
+  }
+
+  .nav a {
+    margin:0 10px;
+    font-size:12px;
+  }
+}
 </style>
 </head>
 
 <body>
 
+<!-- ナビ -->
 <div class="nav">
-  <a href="about.html">ABOUT</a>
-  <a href="service.html">SERVICE</a>
-  <a href="contact.html">CONTACT</a>
+  <a href="#about">ABOUT</a>
+  <a href="#service">SERVICE</a>
+  <a href="#contact">CONTACT</a>
 </div>
 
-<div class="hero">
+<!-- HERO -->
+<section class="section hero">
   <img src="logo.png">
   <h1>Pylex Group</h1>
   <p>SNS × Marketing Company</p>
-</div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="section about">
+  <h2>ABOUT</h2>
+  <p>
+    Pylex GroupはSNSマーケティング・インフルエンサー事業を中心に、
+    複数事業を展開するクリエイティブ企業です。
+  </p>
+
+  <a class="button" href="about.html">詳細を見る</a>
+</section>
+
+<!-- SERVICE -->
+<section id="service" class="section">
+  <h2>SERVICE</h2>
+
+  <div class="services">
+    <div class="card">Influencer</div>
+    <div class="card">Creative</div>
+    <div class="card">Marketing</div>
+    <div class="card">Consulting</div>
+  </div>
+
+  <a class="button" href="service.html">詳細を見る</a>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="section">
+  <h2>CONTACT</h2>
+
+  <a class="button" href="mailto:info.pylexgroup@gmail.com">
+    メールで問い合わせ
+  </a>
+
+  <a class="button" href="https://www.instagram.com/pylexgroup" target="_blank">
+    Instagram
+  </a>
+</section>
 
 </body>
 </html>
