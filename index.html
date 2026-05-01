@@ -77,9 +77,57 @@
     font-family: var(--font-en); font-size: 0.8rem; font-weight: 600;
     background: linear-gradient(135deg, var(--accent), var(--accent2));
     color: var(--white); padding: 8px 20px; text-decoration: none;
-    border-radius: 6px; transition: opacity 0.2s; cursor: pointer;
+    border-radius: 6px; transition: opacity 0.2s; cursor: pointer; border: none;
   }
   .nav-contact:hover { opacity: 0.85; }
+
+  /* ===== HAMBURGER ===== */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 40px; height: 40px;
+    background: none; border: none;
+    cursor: pointer; padding: 4px; z-index: 300;
+  }
+  .hamburger span {
+    display: block; width: 24px; height: 2px;
+    background: #1a1a2e; border-radius: 2px;
+    transition: all 0.3s ease;
+  }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  .mobile-menu {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(255,255,255,0.98);
+    backdrop-filter: blur(12px);
+    z-index: 150;
+    flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 0;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu button {
+    display: block; width: 100%; text-align: center;
+    padding: 22px 40px; font-size: 1.1rem; font-weight: 500;
+    color: #1a1a2e; background: none; border: none;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer; font-family: var(--font-jp);
+    transition: background 0.2s, color 0.2s;
+  }
+  .mobile-menu button:first-child { border-top: 1px solid var(--border); }
+  .mobile-menu button:hover { background: var(--gray-bg); color: var(--accent); }
+  .mobile-menu .mobile-contact-btn {
+    margin-top: 28px; width: auto; border: none;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: #fff; padding: 14px 48px; border-radius: 8px;
+    font-size: 0.95rem; font-weight: 600;
+  }
+  .mobile-menu .mobile-contact-btn:hover { opacity: 0.88; background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #fff; }
 
   /* ===== PAGE SYSTEM ===== */
   .page { display: none; }
@@ -104,7 +152,7 @@
     pointer-events: none;
   }
   .hero-logo {
-    width: min(360px, 80vw); margin-bottom: 32px; position: relative;
+    width: min(360px, 80vw); margin-bottom: 32px;
     animation: heroLogoIn 1s cubic-bezier(0.22,1,0.36,1) 0.2s both;
     filter: drop-shadow(0 0 40px rgba(100,150,255,0.35));
   }
@@ -115,7 +163,8 @@
   .hero-tag {
     display: inline-block; font-family: var(--font-en); font-size: 0.72rem;
     font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase;
-    color: #a5b4fc; background: rgba(79,110,247,0.15); border: 1px solid rgba(79,110,247,0.3);
+    color: #a5b4fc; background: rgba(79,110,247,0.15);
+    border: 1px solid rgba(79,110,247,0.3);
     padding: 5px 14px; border-radius: 100px; margin-bottom: 24px;
     animation: fadeUp 0.8s cubic-bezier(0.22,1,0.36,1) 0.6s both;
   }
@@ -141,6 +190,7 @@
     background: linear-gradient(135deg, var(--accent), var(--accent2));
     color: #fff; font-size: 0.88rem; font-weight: 600; padding: 13px 30px;
     border-radius: 6px; text-decoration: none; border: none; cursor: pointer;
+    font-family: var(--font-jp);
     transition: opacity 0.2s, transform 0.2s;
   }
   .btn-main:hover { opacity: 0.88; transform: translateY(-1px); }
@@ -148,6 +198,7 @@
     background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.8);
     font-size: 0.88rem; font-weight: 400; padding: 13px 30px; border-radius: 6px;
     border: 1px solid rgba(255,255,255,0.15); text-decoration: none; cursor: pointer;
+    font-family: var(--font-jp);
     transition: background 0.2s;
   }
   .btn-sub:hover { background: rgba(255,255,255,0.12); }
@@ -182,7 +233,8 @@
   .stat-num {
     font-family: var(--font-en); font-size: 2.2rem; font-weight: 700;
     background: linear-gradient(90deg, #7eb3ff, #c084fc);
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height: 1;
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    line-height: 1;
   }
   .stat-label { font-size: 0.72rem; color: rgba(255,255,255,0.4); margin-top: 8px; }
 
@@ -232,8 +284,7 @@
   .div-card:hover { box-shadow: 0 8px 32px rgba(79,110,247,0.12); transform: translateY(-3px); }
   .div-card-img { width: 100%; height: 140px; object-fit: cover; display: block; }
   .div-card-img-placeholder {
-    width: 100%; height: 140px; display: flex; align-items: center; justify-content: center;
-    font-size: 2rem;
+    width: 100%; height: 140px; display: flex; align-items: center; justify-content: center; font-size: 2rem;
   }
   .div-card-body { padding: 20px 20px 22px; }
   .div-card-head { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
@@ -251,15 +302,13 @@
     border: 1px solid rgba(79,110,247,0.2); padding: 2px 10px; border-radius: 100px;
   }
   .div-more {
-    display: inline-flex; align-items: center; gap: 6px; margin-top: 12px;
+    display: inline-flex; align-items: center; gap: 6px; margin-top: 10px;
     font-size: 0.75rem; font-weight: 500; color: var(--accent);
   }
   .div-more::after { content: '→'; transition: transform 0.2s; }
   .div-card:hover .div-more::after { transform: translateX(4px); }
 
-  /* ===== DIVISION DETAIL PAGE ===== */
-  .detail-page { display: none; }
-  .detail-page.active { display: block; }
+  /* ===== DETAIL PAGE ===== */
   .detail-hero {
     background: var(--black); padding: 100px 40px 80px; position: relative; overflow: hidden;
   }
@@ -292,9 +341,7 @@
     -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
   }
   .detail-subtitle { font-size: 0.95rem; color: rgba(255,255,255,0.5); max-width: 560px; line-height: 2; }
-
   .detail-body { max-width: 1100px; margin: 0 auto; padding: 72px 40px; }
-
   .detail-section { margin-bottom: 72px; }
   .detail-section-title {
     font-size: 1.2rem; font-weight: 700; color: #1a1a2e; margin-bottom: 16px;
@@ -303,14 +350,10 @@
   }
   .detail-section-title::before {
     content: ''; width: 4px; height: 20px; border-radius: 2px;
-    background: linear-gradient(to bottom, var(--accent), var(--accent2));
-    flex-shrink: 0;
+    background: linear-gradient(to bottom, var(--accent), var(--accent2)); flex-shrink: 0;
   }
   .detail-text { font-size: 0.9rem; color: var(--gray-text); line-height: 2.2; }
-
-  .detail-images {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 32px;
-  }
+  .detail-images { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 32px; }
   .detail-img-wrap { border-radius: 12px; overflow: hidden; }
   .detail-img-wrap img {
     width: 100%; aspect-ratio: 16/10; object-fit: cover; display: block;
@@ -320,17 +363,12 @@
   .detail-img-placeholder {
     width: 100%; aspect-ratio: 16/10; display: flex; align-items: center; justify-content: center; font-size: 2.5rem;
   }
-
   .detail-points { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 24px; }
   .detail-point {
-    background: var(--gray-bg); border-radius: 10px; padding: 20px 22px;
-    border: 1px solid var(--border);
+    background: var(--gray-bg); border-radius: 10px; padding: 20px 22px; border: 1px solid var(--border);
   }
-  .detail-point strong {
-    display: block; font-size: 0.84rem; font-weight: 700; color: #1a1a2e; margin-bottom: 6px;
-  }
+  .detail-point strong { display: block; font-size: 0.84rem; font-weight: 700; color: #1a1a2e; margin-bottom: 6px; }
   .detail-point span { font-size: 0.78rem; color: var(--gray-text); line-height: 1.8; }
-
   .detail-cta {
     background: linear-gradient(135deg, #0f0c29, #1a1a2e);
     border-radius: 16px; padding: 48px 40px; text-align: center; margin-top: 48px;
@@ -354,21 +392,16 @@
     margin-bottom: 16px; line-height: 1.25;
   }
   .member-hero-inner p { font-size: 0.9rem; color: rgba(255,255,255,0.5); line-height: 2; }
-
   .member-body { max-width: 900px; margin: 0 auto; padding: 80px 40px; }
-
-  /* CEO card */
   .ceo-card {
     background: linear-gradient(135deg, #0f0c29, #1e1b4b);
     border-radius: 20px; padding: 56px 48px; margin-bottom: 56px;
-    border: 1px solid rgba(79,110,247,0.2);
-    position: relative; overflow: hidden;
+    border: 1px solid rgba(79,110,247,0.2); position: relative; overflow: hidden;
   }
   .ceo-card::before {
     content: ''; position: absolute; top: -80px; right: -80px;
     width: 300px; height: 300px; border-radius: 50%;
-    background: radial-gradient(circle, rgba(168,85,247,0.15), transparent 70%);
-    pointer-events: none;
+    background: radial-gradient(circle, rgba(168,85,247,0.15), transparent 70%); pointer-events: none;
   }
   .ceo-badge {
     display: inline-block; font-family: var(--font-en); font-size: 0.65rem; font-weight: 600;
@@ -376,10 +409,7 @@
     background: rgba(79,110,247,0.2); border: 1px solid rgba(79,110,247,0.3);
     padding: 4px 14px; border-radius: 100px; margin-bottom: 24px;
   }
-  .ceo-card h2 {
-    font-size: 1.5rem; font-weight: 700; color: var(--white); margin-bottom: 28px;
-    line-height: 1.3;
-  }
+  .ceo-card h2 { font-size: 1.5rem; font-weight: 700; color: var(--white); margin-bottom: 28px; line-height: 1.3; }
   .ceo-card h2 .grad {
     background: linear-gradient(90deg, #7eb3ff, #c084fc);
     -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
@@ -389,31 +419,23 @@
   .ceo-text p:last-child { margin-bottom: 0; }
   .ceo-sig {
     margin-top: 36px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.1);
-    font-size: 0.78rem; color: rgba(255,255,255,0.35); font-family: var(--font-en);
-    letter-spacing: 0.1em;
+    font-size: 0.78rem; color: rgba(255,255,255,0.35); font-family: var(--font-en); letter-spacing: 0.1em;
   }
-
-  /* Member cards */
   .member-cards { display: flex; flex-direction: column; gap: 24px; }
   .member-card {
     background: var(--white); border: 1px solid var(--border); border-radius: 16px;
     padding: 36px 40px; transition: box-shadow 0.25s;
   }
   .member-card:hover { box-shadow: 0 8px 32px rgba(79,110,247,0.1); }
-  .member-card-head {
-    display: flex; align-items: center; gap: 16px; margin-bottom: 20px;
-  }
+  .member-card-head { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
   .member-avatar {
     width: 52px; height: 52px; border-radius: 50%; flex-shrink: 0;
     background: linear-gradient(135deg, var(--accent), var(--accent2));
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.4rem;
+    display: flex; align-items: center; justify-content: center; font-size: 1.4rem;
   }
-  .member-info-head {}
   .member-role {
     font-family: var(--font-en); font-size: 0.65rem; font-weight: 600;
-    letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent);
-    margin-bottom: 4px;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 4px;
   }
   .member-name { font-size: 0.95rem; font-weight: 700; color: #1a1a2e; }
   .member-text { font-size: 0.86rem; color: var(--gray-text); line-height: 2.2; }
@@ -454,18 +476,27 @@
   @media (max-width: 768px) {
     nav { padding: 0 20px; }
     .nav-links { display: none; }
-    .about-grid, .detail-points { grid-template-columns: 1fr; gap: 32px; }
-    .divisions-grid { grid-template-columns: 1fr; }
-    .detail-images { grid-template-columns: 1fr; }
-    .section-wrap, .detail-body, .member-body { padding: 56px 20px; }
-    .contact-wrap { padding: 56px 20px; }
-    .contact-box, .ceo-card { padding: 32px 22px; }
-    .member-card { padding: 28px 22px; }
-    .stats-inner { grid-template-columns: repeat(2, 1fr); }
+    .nav-contact { display: none; }
+    .hamburger { display: flex; }
+    .hero { padding: 80px 24px 100px; }
     .stats-bar { padding: 36px 20px; }
-    footer { padding: 28px 20px; flex-direction: column; text-align: center; }
+    .stats-inner { grid-template-columns: repeat(2, 1fr); }
+    .section-wrap { padding: 56px 20px; }
+    .about-grid { grid-template-columns: 1fr; gap: 32px; }
     .div-header { flex-direction: column; align-items: flex-start; gap: 8px; }
-    .hero, .detail-hero, .member-hero { padding: 80px 24px 60px; }
+    .divisions-grid { grid-template-columns: 1fr; }
+    .contact-wrap { padding: 56px 20px; }
+    .contact-box { padding: 32px 22px; }
+    .detail-hero { padding: 80px 24px 60px; }
+    .detail-body { padding: 48px 20px; }
+    .detail-images { grid-template-columns: 1fr; }
+    .detail-points { grid-template-columns: 1fr; }
+    .detail-cta { padding: 36px 24px; }
+    .member-hero { padding: 80px 24px 60px; }
+    .member-body { padding: 48px 20px; }
+    .ceo-card { padding: 32px 22px; }
+    .member-card { padding: 28px 22px; }
+    footer { padding: 28px 20px; flex-direction: column; text-align: center; }
   }
 </style>
 </head>
@@ -482,29 +513,37 @@
     <li><a onclick="showPage('member');">Member</a></li>
     <li><a onclick="showPage('home'); scrollToSection('contact');">Contact</a></li>
   </ul>
-  <a class="nav-contact" onclick="showPage('home'); scrollToSection('contact');">お問い合わせ</a>
+  <button class="nav-contact" onclick="showPage('home'); scrollToSection('contact');">お問い合わせ</button>
+  <button class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
-<!-- ==================== HOME PAGE ==================== -->
+<!-- モバイルメニュー -->
+<div class="mobile-menu" id="mobileMenu">
+  <button onclick="mobileNav('home','about')">About</button>
+  <button onclick="mobileNav('home','divisions')">事業紹介</button>
+  <button onclick="mobileNav('member', null)">Member</button>
+  <button onclick="mobileNav('home','contact')">Contact</button>
+  <button class="mobile-contact-btn" onclick="mobileNav('home','contact')">お問い合わせ</button>
+</div>
+
+
+<!-- ========== HOME PAGE ========== -->
 <div id="page-home" class="page active">
 
-  <!-- HERO -->
   <section class="hero">
     <img class="hero-logo" src="logo.png" alt="Pylex">
     <p class="hero-tag">SNS × Marketing × Monetization</p>
     <h1>デジタルで、<br>ビジネスの<span class="grad">新しい当たり前</span>を<br>つくる。</h1>
     <p class="hero-sub">Pylex Groupは、SNSマーケティングを中心に複数の事業を展開するスタートアップ企業です。若年層へのリーチ力とスピード感のある実行力を強みに、デジタル領域での収益化・集客支援を行っています。</p>
     <div class="hero-actions">
-      <button class="btn-main" onclick="showPage('home'); scrollToSection('divisions');">事業紹介を見る</button>
-      <button class="btn-sub" onclick="showPage('home'); scrollToSection('contact');">お問い合わせ</button>
+      <button class="btn-main" onclick="scrollToSection('divisions')">事業紹介を見る</button>
+      <button class="btn-sub" onclick="scrollToSection('contact')">お問い合わせ</button>
     </div>
-    <div class="hero-scroll">
-      <div class="scroll-dot"></div>
-      <span>Scroll</span>
-    </div>
+    <div class="hero-scroll"><div class="scroll-dot"></div><span>Scroll</span></div>
   </section>
 
-  <!-- STATS -->
   <div class="stats-bar">
     <div class="stats-inner">
       <div class="stat-item reveal"><div class="stat-num">9+</div><div class="stat-label">事業部門</div></div>
@@ -514,7 +553,6 @@
     </div>
   </div>
 
-  <!-- ABOUT -->
   <section class="light" id="about">
     <div class="section-wrap">
       <div class="about-grid">
@@ -522,7 +560,7 @@
           <p class="section-label">About</p>
           <h2 class="section-title">Pylex Groupについて</h2>
           <p style="font-size:0.88rem;color:var(--gray-text);line-height:2.1;margin-bottom:14px;">「SNS × マーケティング × 収益化」を軸に、複数の事業を横断的に連携させています。各事業は独立しながらも相互にシナジーを生み出し、企業や個人の収益最大化を支援します。</p>
-          <p style="font-size:0.88rem;color:var(--gray-text);line-height:2.1;margin-bottom:0;">現在は少人数チームでスピーディーに事業を拡大中。将来的には大規模なマーケティング会社として成長することを目標としています。</p>
+          <p style="font-size:0.88rem;color:var(--gray-text);line-height:2.1;">現在は少人数チームでスピーディーに事業を拡大中。将来的には大規模なマーケティング会社として成長することを目標としています。</p>
           <div class="feature-list">
             <div class="feature-item"><div class="f-icon">🚀</div><div><strong>スピードと実行力</strong><span>トライアンドエラーを繰り返しながら事業を高速で拡大。アイデアをすぐにかたちにします。</span></div></div>
             <div class="feature-item"><div class="f-icon">🔗</div><div><strong>事業横断のシナジー</strong><span>各事業が連携し合い、グループ全体として最大の効果を生み出します。</span></div></div>
@@ -539,7 +577,6 @@
     </div>
   </section>
 
-  <!-- DIVISIONS -->
   <section class="gray" id="divisions">
     <div class="section-wrap">
       <div class="div-header reveal">
@@ -547,12 +584,12 @@
           <p class="section-label">Divisions</p>
           <h2 class="section-title">事業紹介</h2>
         </div>
-        <p class="section-desc" style="max-width:260px;text-align:right;">各カードをクリックすると詳細をご覧いただけます。</p>
+        <p class="section-desc" style="max-width:260px;text-align:right;font-size:0.8rem;">各カードをタップすると詳細をご覧いただけます。</p>
       </div>
       <div class="divisions-grid">
 
         <div class="div-card reveal reveal-delay-1" onclick="showDetail('influencer')">
-          <img class="div-card-img" src="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=600&q=75" alt="インフルエンサー" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <img class="div-card-img" src="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=600&q=75" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
           <div class="div-card-img-placeholder" style="display:none;background:linear-gradient(135deg,#1a1a2e,#302b63);">👥</div>
           <div class="div-card-body">
             <div class="div-card-head"><div class="div-icon">👥</div><div class="div-name">インフルエンサー事業部</div></div>
@@ -563,8 +600,8 @@
         </div>
 
         <div class="div-card reveal reveal-delay-2" onclick="showDetail('creative')">
-          <img class="div-card-img" src="https://images.unsplash.com/photo-1536240478700-b869ad10a2ab?w=600&q=75" alt="クリエイティブ" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-          <div class="div-card-img-placeholder" style="display:none;background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);">🎬</div>
+          <img class="div-card-img" src="https://images.unsplash.com/photo-1536240478700-b869ad10a2ab?w=600&q=75" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="div-card-img-placeholder" style="display:none;background:linear-gradient(135deg,#0f2027,#2c5364);">🎬</div>
           <div class="div-card-body">
             <div class="div-card-head"><div class="div-icon">🎬</div><div class="div-name">クリエイティブ事業部</div></div>
             <p class="div-desc">AIを活用した動画制作・SNS運用・Webサイト制作まで。</p>
@@ -574,7 +611,7 @@
         </div>
 
         <div class="div-card reveal reveal-delay-3" onclick="showDetail('digital')">
-          <img class="div-card-img" src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=75" alt="デジタルマーケティング" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <img class="div-card-img" src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=75" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
           <div class="div-card-img-placeholder" style="display:none;background:linear-gradient(135deg,#134e5e,#71b280);">📊</div>
           <div class="div-card-body">
             <div class="div-card-head"><div class="div-icon">📊</div><div class="div-name">デジタルマーケティング事業部</div></div>
@@ -585,7 +622,7 @@
         </div>
 
         <div class="div-card reveal reveal-delay-1" onclick="showDetail('consulting')">
-          <img class="div-card-img" src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&q=75" alt="コンサルティング" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <img class="div-card-img" src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&q=75" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
           <div class="div-card-img-placeholder" style="display:none;background:linear-gradient(135deg,#1a1a2e,#4f6ef7);">💡</div>
           <div class="div-card-body">
             <div class="div-card-head"><div class="div-icon">💡</div><div class="div-name">コンサルティング事業部</div></div>
@@ -596,7 +633,7 @@
         </div>
 
         <div class="div-card reveal reveal-delay-2" onclick="showDetail('sales')">
-          <img class="div-card-img" src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=600&q=75" alt="営業代行" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <img class="div-card-img" src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=600&q=75" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
           <div class="div-card-img-placeholder" style="display:none;background:linear-gradient(135deg,#232526,#414345);">📡</div>
           <div class="div-card-body">
             <div class="div-card-head"><div class="div-icon">📡</div><div class="div-name">営業代行事業部</div></div>
@@ -607,7 +644,7 @@
         </div>
 
         <div class="div-card reveal reveal-delay-3" onclick="showDetail('apparel')">
-          <img class="div-card-img" src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=600&q=75" alt="アパレル" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <img class="div-card-img" src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=600&q=75" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
           <div class="div-card-img-placeholder" style="display:none;background:linear-gradient(135deg,#2c003e,#8e0e00);">👗</div>
           <div class="div-card-body">
             <div class="div-card-head"><div class="div-icon">👗</div><div class="div-name">アパレル事業部</div></div>
@@ -618,7 +655,7 @@
         </div>
 
         <div class="div-card reveal reveal-delay-1" onclick="showDetail('realestate')">
-          <img class="div-card-img" src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&q=75" alt="不動産" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <img class="div-card-img" src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&q=75" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
           <div class="div-card-img-placeholder" style="display:none;background:linear-gradient(135deg,#1a1a2e,#2d4a8a);">🏙️</div>
           <div class="div-card-body">
             <div class="div-card-head"><div class="div-icon">🏙️</div><div class="div-name">不動産事業部</div></div>
@@ -629,7 +666,7 @@
         </div>
 
         <div class="div-card reveal reveal-delay-2" onclick="showDetail('entertainment')">
-          <img class="div-card-img" src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=600&q=75" alt="エンターテイメント" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <img class="div-card-img" src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=600&q=75" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
           <div class="div-card-img-placeholder" style="display:none;background:linear-gradient(135deg,#1f003e,#9b00d3);">🎭</div>
           <div class="div-card-body">
             <div class="div-card-head"><div class="div-icon">🎭</div><div class="div-name">エンターテイメント事業部</div></div>
@@ -640,7 +677,7 @@
         </div>
 
         <div class="div-card reveal reveal-delay-3" onclick="showDetail('telecom')">
-          <img class="div-card-img" src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&q=75" alt="通信事業部" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <img class="div-card-img" src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&q=75" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
           <div class="div-card-img-placeholder" style="display:none;background:linear-gradient(135deg,#0f2460,#1a4a9e);">📶</div>
           <div class="div-card-body">
             <div class="div-card-head"><div class="div-icon">📶</div><div class="div-name">通信事業部</div></div>
@@ -654,7 +691,6 @@
     </div>
   </section>
 
-  <!-- CONTACT -->
   <section class="light" id="contact">
     <div class="contact-wrap">
       <div class="contact-box reveal-scale">
@@ -684,13 +720,10 @@
     <div class="footer-logo"><img src="logo.png" alt="Pylex Group"></div>
     <p>© 2025 Pylex Group. All rights reserved.</p>
   </footer>
+</div>
 
-</div><!-- /page-home -->
 
-
-<!-- ==================== DETAIL PAGES ==================== -->
-
-<!-- INFLUENCER -->
+<!-- ========== DETAIL: INFLUENCER ========== -->
 <div id="page-detail-influencer" class="page">
   <div class="detail-hero">
     <div class="detail-hero-inner">
@@ -731,7 +764,7 @@
   <footer><div class="footer-logo"><img src="logo.png" alt="Pylex Group"></div><p>© 2025 Pylex Group. All rights reserved.</p></footer>
 </div>
 
-<!-- CREATIVE -->
+<!-- ========== DETAIL: CREATIVE ========== -->
 <div id="page-detail-creative" class="page">
   <div class="detail-hero">
     <div class="detail-hero-inner">
@@ -772,7 +805,7 @@
   <footer><div class="footer-logo"><img src="logo.png" alt="Pylex Group"></div><p>© 2025 Pylex Group. All rights reserved.</p></footer>
 </div>
 
-<!-- DIGITAL MARKETING -->
+<!-- ========== DETAIL: DIGITAL MARKETING ========== -->
 <div id="page-detail-digital" class="page">
   <div class="detail-hero">
     <div class="detail-hero-inner">
@@ -813,7 +846,7 @@
   <footer><div class="footer-logo"><img src="logo.png" alt="Pylex Group"></div><p>© 2025 Pylex Group. All rights reserved.</p></footer>
 </div>
 
-<!-- CONSULTING -->
+<!-- ========== DETAIL: CONSULTING ========== -->
 <div id="page-detail-consulting" class="page">
   <div class="detail-hero">
     <div class="detail-hero-inner">
@@ -854,7 +887,7 @@
   <footer><div class="footer-logo"><img src="logo.png" alt="Pylex Group"></div><p>© 2025 Pylex Group. All rights reserved.</p></footer>
 </div>
 
-<!-- SALES -->
+<!-- ========== DETAIL: SALES ========== -->
 <div id="page-detail-sales" class="page">
   <div class="detail-hero">
     <div class="detail-hero-inner">
@@ -895,7 +928,7 @@
   <footer><div class="footer-logo"><img src="logo.png" alt="Pylex Group"></div><p>© 2025 Pylex Group. All rights reserved.</p></footer>
 </div>
 
-<!-- APPAREL -->
+<!-- ========== DETAIL: APPAREL ========== -->
 <div id="page-detail-apparel" class="page">
   <div class="detail-hero">
     <div class="detail-hero-inner">
@@ -936,7 +969,7 @@
   <footer><div class="footer-logo"><img src="logo.png" alt="Pylex Group"></div><p>© 2025 Pylex Group. All rights reserved.</p></footer>
 </div>
 
-<!-- REAL ESTATE -->
+<!-- ========== DETAIL: REAL ESTATE ========== -->
 <div id="page-detail-realestate" class="page">
   <div class="detail-hero">
     <div class="detail-hero-inner">
@@ -977,7 +1010,7 @@
   <footer><div class="footer-logo"><img src="logo.png" alt="Pylex Group"></div><p>© 2025 Pylex Group. All rights reserved.</p></footer>
 </div>
 
-<!-- ENTERTAINMENT -->
+<!-- ========== DETAIL: ENTERTAINMENT ========== -->
 <div id="page-detail-entertainment" class="page">
   <div class="detail-hero">
     <div class="detail-hero-inner">
@@ -1018,7 +1051,7 @@
   <footer><div class="footer-logo"><img src="logo.png" alt="Pylex Group"></div><p>© 2025 Pylex Group. All rights reserved.</p></footer>
 </div>
 
-<!-- TELECOM -->
+<!-- ========== DETAIL: TELECOM ========== -->
 <div id="page-detail-telecom" class="page">
   <div class="detail-hero">
     <div class="detail-hero-inner">
@@ -1060,7 +1093,7 @@
 </div>
 
 
-<!-- ==================== MEMBER PAGE ==================== -->
+<!-- ========== MEMBER PAGE ========== -->
 <div id="page-member" class="page">
   <div class="member-hero">
     <div class="member-hero-inner">
@@ -1069,10 +1102,7 @@
       <p>Pylex Groupを動かす代表・各事業部主任からのメッセージ</p>
     </div>
   </div>
-
   <div class="member-body">
-
-    <!-- CEO -->
     <div class="ceo-card reveal">
       <p class="ceo-badge">Representative Director</p>
       <h2>代表取締役社長より<br><span class="grad">挑戦し続ける組織へ</span></h2>
@@ -1084,29 +1114,41 @@
       </div>
       <div class="ceo-sig">Pylex Group — 代表取締役</div>
     </div>
-
-    <!-- Member cards -->
     <div class="member-cards">
-
       <div class="member-card reveal">
         <div class="member-card-head">
           <div class="member-avatar">🎬</div>
-          <div class="member-info-head">
+          <div>
             <div class="member-role">Creative Division — Chief</div>
             <div class="member-name">クリエイティブ事業部 主任</div>
           </div>
         </div>
         <p class="member-text">私たちクリエイティブ事業部は、生活の一部となりつつあるAIを活用し、動画制作やSNS運用、企業PR動画、Webサイト制作を展開しています。トレンドを捉えたコンテンツで企業の魅力を最大限に引き出し、ブランド価値の向上に貢献していきます。主任として、常に結果に向き合い、その一つひとつの成果に責任を持ち、企業価値の向上につながる価値あるものを提供し続けてまいります。</p>
       </div>
-
     </div>
   </div>
-
   <footer><div class="footer-logo"><img src="logo.png" alt="Pylex Group"></div><p>© 2025 Pylex Group. All rights reserved.</p></footer>
 </div>
 
 
 <script>
+  // ===== HAMBURGER =====
+  function toggleMenu() {
+    const hamburger = document.getElementById('hamburger');
+    const menu = document.getElementById('mobileMenu');
+    hamburger.classList.toggle('open');
+    menu.classList.toggle('open');
+    document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+  }
+
+  function mobileNav(pageId, sectionId) {
+    document.getElementById('hamburger').classList.remove('open');
+    document.getElementById('mobileMenu').classList.remove('open');
+    document.body.style.overflow = '';
+    showPage(pageId);
+    if (sectionId) scrollToSection(sectionId);
+  }
+
   // ===== PAGE ROUTING =====
   function showPage(pageId) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -1114,7 +1156,6 @@
     if (target) {
       target.classList.add('active');
       window.scrollTo({ top: 0, behavior: 'smooth' });
-      // Re-trigger reveal animations for the new page
       setTimeout(initReveal, 100);
     }
   }
@@ -1127,7 +1168,7 @@
     setTimeout(() => {
       const el = document.getElementById(id);
       if (el) el.scrollIntoView({ behavior: 'smooth' });
-    }, 100);
+    }, 150);
   }
 
   // ===== SCROLL REVEAL =====
@@ -1147,7 +1188,6 @@
     });
   }
 
-  // Init on load
   initReveal();
 </script>
 </body>
