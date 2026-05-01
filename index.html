@@ -8,12 +8,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
   :root {
     --black: #0a0a0f;
     --white: #fff;
     --gray-bg: #f4f5f9;
-    --gray-light: #eee;
     --gray-text: #555;
     --gray-mid: #999;
     --accent: #4f6ef7;
@@ -23,9 +21,7 @@
     --font-en: 'Inter', sans-serif;
     --font-jp: 'Noto Sans JP', sans-serif;
   }
-
   html { scroll-behavior: smooth; }
-
   body {
     font-family: var(--font-jp);
     color: #1a1a2e;
@@ -37,122 +33,78 @@
 
   /* ===== SCROLL REVEAL ===== */
   .reveal {
-    opacity: 0;
-    transform: translateY(48px);
+    opacity: 0; transform: translateY(48px);
     transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1);
   }
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
   .reveal-delay-1 { transition-delay: 0.1s; }
   .reveal-delay-2 { transition-delay: 0.2s; }
   .reveal-delay-3 { transition-delay: 0.3s; }
   .reveal-delay-4 { transition-delay: 0.4s; }
-  .reveal-delay-5 { transition-delay: 0.5s; }
   .reveal-left {
-    opacity: 0;
-    transform: translateX(-40px);
+    opacity: 0; transform: translateX(-40px);
     transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1);
   }
   .reveal-right {
-    opacity: 0;
-    transform: translateX(40px);
+    opacity: 0; transform: translateX(40px);
     transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1);
   }
-  .reveal-left.visible, .reveal-right.visible {
-    opacity: 1;
-    transform: translateX(0);
-  }
+  .reveal-left.visible, .reveal-right.visible { opacity: 1; transform: translateX(0); }
   .reveal-scale {
-    opacity: 0;
-    transform: scale(0.92);
+    opacity: 0; transform: scale(0.92);
     transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1);
   }
-  .reveal-scale.visible {
-    opacity: 1;
-    transform: scale(1);
-  }
+  .reveal-scale.visible { opacity: 1; transform: scale(1); }
 
   /* ===== NAV ===== */
   nav {
-    position: sticky;
-    top: 0;
-    z-index: 100;
+    position: sticky; top: 0; z-index: 200;
     background: rgba(255,255,255,0.95);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--border);
     padding: 0 40px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    display: flex; justify-content: space-between; align-items: center;
     height: 64px;
   }
-  .nav-logo img {
-    height: 40px;
-    width: auto;
-    object-fit: contain;
-    display: block;
-  }
-  .nav-links {
-    display: flex;
-    gap: 32px;
-    list-style: none;
-  }
+  .nav-logo img { height: 40px; width: auto; object-fit: contain; display: block; }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
   .nav-links a {
-    font-size: 0.82rem;
-    color: var(--gray-text);
-    text-decoration: none;
-    font-weight: 400;
-    transition: color 0.2s;
+    font-size: 0.82rem; color: var(--gray-text); text-decoration: none;
+    font-weight: 400; transition: color 0.2s; cursor: pointer;
   }
   .nav-links a:hover { color: var(--accent); }
   .nav-contact {
-    font-family: var(--font-en);
-    font-size: 0.8rem;
-    font-weight: 600;
+    font-family: var(--font-en); font-size: 0.8rem; font-weight: 600;
     background: linear-gradient(135deg, var(--accent), var(--accent2));
-    color: var(--white);
-    padding: 8px 20px;
-    text-decoration: none;
-    border-radius: 6px;
-    transition: opacity 0.2s;
+    color: var(--white); padding: 8px 20px; text-decoration: none;
+    border-radius: 6px; transition: opacity 0.2s; cursor: pointer;
   }
   .nav-contact:hover { opacity: 0.85; }
 
+  /* ===== PAGE SYSTEM ===== */
+  .page { display: none; }
+  .page.active { display: block; }
+
   /* ===== HERO ===== */
   .hero {
-    background: var(--black);
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 80px 40px;
-    position: relative;
-    overflow: hidden;
+    background: var(--black); min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 80px 40px; position: relative; overflow: hidden;
   }
-  /* star-like bg dots */
   .hero::before {
-    content: '';
-    position: absolute;
-    inset: 0;
+    content: ''; position: absolute; inset: 0;
     background-image:
       radial-gradient(1px 1px at 15% 20%, rgba(160,130,255,0.6) 0%, transparent 100%),
       radial-gradient(1px 1px at 80% 10%, rgba(100,180,255,0.6) 0%, transparent 100%),
       radial-gradient(1px 1px at 60% 70%, rgba(160,130,255,0.4) 0%, transparent 100%),
       radial-gradient(1px 1px at 30% 80%, rgba(100,180,255,0.4) 0%, transparent 100%),
       radial-gradient(2px 2px at 90% 50%, rgba(200,160,255,0.5) 0%, transparent 100%),
-      radial-gradient(1px 1px at 5%  60%, rgba(120,200,255,0.4) 0%, transparent 100%),
       radial-gradient(600px 600px at 20% 50%, rgba(79,110,247,0.12) 0%, transparent 70%),
       radial-gradient(600px 600px at 80% 50%, rgba(168,85,247,0.12) 0%, transparent 70%);
     pointer-events: none;
   }
   .hero-logo {
-    width: min(360px, 80vw);
-    margin-bottom: 32px;
-    position: relative;
+    width: min(360px, 80vw); margin-bottom: 32px; position: relative;
     animation: heroLogoIn 1s cubic-bezier(0.22,1,0.36,1) 0.2s both;
     filter: drop-shadow(0 0 40px rgba(100,150,255,0.35));
   }
@@ -161,97 +113,56 @@
     to   { opacity: 1; transform: scale(1) translateY(0); }
   }
   .hero-tag {
-    display: inline-block;
-    font-family: var(--font-en);
-    font-size: 0.72rem;
-    font-weight: 500;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: #a5b4fc;
-    background: rgba(79,110,247,0.15);
-    border: 1px solid rgba(79,110,247,0.3);
-    padding: 5px 14px;
-    border-radius: 100px;
-    margin-bottom: 24px;
+    display: inline-block; font-family: var(--font-en); font-size: 0.72rem;
+    font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase;
+    color: #a5b4fc; background: rgba(79,110,247,0.15); border: 1px solid rgba(79,110,247,0.3);
+    padding: 5px 14px; border-radius: 100px; margin-bottom: 24px;
     animation: fadeUp 0.8s cubic-bezier(0.22,1,0.36,1) 0.6s both;
   }
   .hero h1 {
-    font-size: clamp(2rem, 5vw, 3.6rem);
-    font-weight: 700;
-    line-height: 1.25;
-    letter-spacing: -0.02em;
-    color: var(--white);
-    margin-bottom: 20px;
+    font-size: clamp(2rem, 5vw, 3.6rem); font-weight: 700; line-height: 1.25;
+    letter-spacing: -0.02em; color: var(--white); margin-bottom: 20px;
     animation: fadeUp 0.8s cubic-bezier(0.22,1,0.36,1) 0.75s both;
   }
   .hero h1 .grad {
     background: linear-gradient(90deg, #7eb3ff, #c084fc);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
   }
   .hero-sub {
-    font-size: 0.95rem;
-    color: rgba(255,255,255,0.55);
-    max-width: 520px;
-    line-height: 2;
-    margin-bottom: 40px;
+    font-size: 0.95rem; color: rgba(255,255,255,0.55); max-width: 520px;
+    line-height: 2; margin-bottom: 40px;
     animation: fadeUp 0.8s cubic-bezier(0.22,1,0.36,1) 0.9s both;
   }
   .hero-actions {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-    justify-content: center;
+    display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;
     animation: fadeUp 0.8s cubic-bezier(0.22,1,0.36,1) 1.05s both;
   }
   .btn-main {
     background: linear-gradient(135deg, var(--accent), var(--accent2));
-    color: #fff;
-    font-size: 0.88rem;
-    font-weight: 600;
-    padding: 13px 30px;
-    border-radius: 6px;
-    text-decoration: none;
+    color: #fff; font-size: 0.88rem; font-weight: 600; padding: 13px 30px;
+    border-radius: 6px; text-decoration: none; border: none; cursor: pointer;
     transition: opacity 0.2s, transform 0.2s;
   }
   .btn-main:hover { opacity: 0.88; transform: translateY(-1px); }
   .btn-sub {
-    background: rgba(255,255,255,0.07);
-    color: rgba(255,255,255,0.8);
-    font-size: 0.88rem;
-    font-weight: 400;
-    padding: 13px 30px;
-    border-radius: 6px;
-    border: 1px solid rgba(255,255,255,0.15);
-    text-decoration: none;
+    background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.8);
+    font-size: 0.88rem; font-weight: 400; padding: 13px 30px; border-radius: 6px;
+    border: 1px solid rgba(255,255,255,0.15); text-decoration: none; cursor: pointer;
     transition: background 0.2s;
   }
   .btn-sub:hover { background: rgba(255,255,255,0.12); }
-
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(24px); }
     to   { opacity: 1; transform: translateY(0); }
   }
-
-  /* scroll indicator */
   .hero-scroll {
-    position: absolute;
-    bottom: 32px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
+    position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
     animation: fadeUp 1s 1.4s both;
   }
   .hero-scroll span {
-    font-family: var(--font-en);
-    font-size: 0.6rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.3);
+    font-family: var(--font-en); font-size: 0.6rem; letter-spacing: 0.2em;
+    text-transform: uppercase; color: rgba(255,255,255,0.3);
   }
   .scroll-dot {
     width: 1px; height: 40px;
@@ -259,331 +170,302 @@
     animation: scrollDot 2s ease-in-out infinite;
   }
   @keyframes scrollDot {
-    0%,100% { opacity: 0.3; transform: scaleY(1); }
-    50%      { opacity: 1;   transform: scaleY(1.2); }
+    0%,100% { opacity: 0.3; } 50% { opacity: 1; }
   }
 
   /* ===== STATS BAR ===== */
-  .stats-bar {
-    background: var(--black);
-    border-top: 1px solid rgba(255,255,255,0.06);
-    padding: 40px;
-  }
+  .stats-bar { background: var(--black); border-top: 1px solid rgba(255,255,255,0.06); padding: 40px; }
   .stats-inner {
-    max-width: 1100px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 24px;
-    text-align: center;
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; text-align: center;
   }
   .stat-num {
-    font-family: var(--font-en);
-    font-size: 2.2rem;
-    font-weight: 700;
+    font-family: var(--font-en); font-size: 2.2rem; font-weight: 700;
     background: linear-gradient(90deg, #7eb3ff, #c084fc);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    line-height: 1;
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height: 1;
   }
-  .stat-label {
-    font-size: 0.72rem;
-    color: rgba(255,255,255,0.4);
-    margin-top: 8px;
-  }
+  .stat-label { font-size: 0.72rem; color: rgba(255,255,255,0.4); margin-top: 8px; }
 
   /* ===== SECTION COMMON ===== */
   section.light { background: var(--white); }
   section.gray  { background: var(--gray-bg); }
-
-  .section-wrap {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 90px 40px;
-  }
+  .section-wrap { max-width: 1100px; margin: 0 auto; padding: 90px 40px; }
   .section-label {
-    font-family: var(--font-en);
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
+    font-family: var(--font-en); font-size: 0.72rem; font-weight: 600;
+    letter-spacing: 0.12em; text-transform: uppercase;
     background: linear-gradient(90deg, var(--accent), var(--accent2));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
     margin-bottom: 10px;
   }
   .section-title {
-    font-size: clamp(1.6rem, 3vw, 2.2rem);
-    font-weight: 700;
-    letter-spacing: -0.01em;
-    color: #1a1a2e;
-    margin-bottom: 16px;
+    font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 700;
+    letter-spacing: -0.01em; color: #1a1a2e; margin-bottom: 16px;
   }
-  .section-desc {
-    font-size: 0.88rem;
-    color: var(--gray-text);
-    max-width: 500px;
-    line-height: 2;
-  }
+  .section-desc { font-size: 0.88rem; color: var(--gray-text); max-width: 500px; line-height: 2; }
 
   /* ===== ABOUT ===== */
-  .about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 72px;
-    align-items: center;
-  }
-  .about-text p {
-    font-size: 0.88rem;
-    color: var(--gray-text);
-    line-height: 2.1;
-    margin-bottom: 14px;
-  }
-  .about-img-wrap {
-    position: relative;
-    border-radius: 16px;
-    overflow: hidden;
-  }
-  .about-img-wrap img {
-    width: 100%;
-    aspect-ratio: 4/3;
-    object-fit: cover;
-    border-radius: 16px;
-    display: block;
-  }
-  /* Unsplash placeholder via CSS gradient for fallback */
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
+  .about-img-wrap { border-radius: 16px; overflow: hidden; }
+  .about-img-wrap img { width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: 16px; display: block; }
   .about-img-placeholder {
-    width: 100%;
-    aspect-ratio: 4/3;
-    border-radius: 16px;
+    width: 100%; aspect-ratio: 4/3; border-radius: 16px;
     background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 3rem;
+    display: flex; align-items: center; justify-content: center; font-size: 3rem;
   }
-  .feature-list {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    margin-top: 28px;
-  }
+  .feature-list { display: flex; flex-direction: column; gap: 14px; margin-top: 28px; }
   .feature-item {
-    display: flex;
-    gap: 14px;
-    align-items: flex-start;
-    background: var(--gray-bg);
-    border-radius: 10px;
-    padding: 16px 18px;
+    display: flex; gap: 14px; align-items: flex-start;
+    background: var(--gray-bg); border-radius: 10px; padding: 16px 18px;
     border: 1px solid var(--border);
   }
-  .f-icon {
-    font-size: 1.1rem;
-    flex-shrink: 0;
-    margin-top: 1px;
-  }
-  .feature-item strong {
-    display: block;
-    font-size: 0.82rem;
-    font-weight: 600;
-    margin-bottom: 3px;
-    color: #1a1a2e;
-  }
-  .feature-item span {
-    font-size: 0.76rem;
-    color: var(--gray-text);
-    line-height: 1.75;
-  }
+  .f-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+  .feature-item strong { display: block; font-size: 0.82rem; font-weight: 600; margin-bottom: 3px; color: #1a1a2e; }
+  .feature-item span { font-size: 0.76rem; color: var(--gray-text); line-height: 1.75; }
 
   /* ===== DIVISIONS ===== */
-  .div-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    margin-bottom: 48px;
-  }
-  .divisions-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 18px;
-  }
+  .div-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 48px; }
+  .divisions-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
   .div-card {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    overflow: hidden;
-    transition: box-shadow 0.25s, transform 0.25s;
+    background: var(--white); border: 1px solid var(--border); border-radius: 12px;
+    overflow: hidden; transition: box-shadow 0.25s, transform 0.25s; cursor: pointer;
   }
-  .div-card:hover {
-    box-shadow: 0 8px 32px rgba(79,110,247,0.12);
-    transform: translateY(-3px);
-  }
-  .div-card-img {
-    width: 100%;
-    height: 140px;
-    object-fit: cover;
-    display: block;
-    background: linear-gradient(135deg, #1a1a2e, #302b63);
-  }
+  .div-card:hover { box-shadow: 0 8px 32px rgba(79,110,247,0.12); transform: translateY(-3px); }
+  .div-card-img { width: 100%; height: 140px; object-fit: cover; display: block; }
   .div-card-img-placeholder {
-    width: 100%;
-    height: 140px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 100%; height: 140px; display: flex; align-items: center; justify-content: center;
     font-size: 2rem;
   }
-  .div-card-body {
-    padding: 20px 20px 22px;
-  }
-  .div-card-head {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 10px;
-  }
+  .div-card-body { padding: 20px 20px 22px; }
+  .div-card-head { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
   .div-icon {
-    width: 32px; height: 32px;
-    background: var(--accent-light);
-    border-radius: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.95rem;
+    width: 32px; height: 32px; background: var(--accent-light); border-radius: 6px;
+    display: flex; align-items: center; justify-content: center; font-size: 0.95rem; flex-shrink: 0;
+  }
+  .div-name { font-size: 0.88rem; font-weight: 700; color: #1a1a2e; line-height: 1.35; }
+  .div-desc { font-size: 0.76rem; color: var(--gray-text); line-height: 1.85; }
+  .div-tag {
+    display: inline-block; margin-top: 12px; font-family: var(--font-en); font-size: 0.62rem;
+    font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    border: 1px solid rgba(79,110,247,0.2); padding: 2px 10px; border-radius: 100px;
+  }
+  .div-more {
+    display: inline-flex; align-items: center; gap: 6px; margin-top: 12px;
+    font-size: 0.75rem; font-weight: 500; color: var(--accent);
+  }
+  .div-more::after { content: '→'; transition: transform 0.2s; }
+  .div-card:hover .div-more::after { transform: translateX(4px); }
+
+  /* ===== DIVISION DETAIL PAGE ===== */
+  .detail-page { display: none; }
+  .detail-page.active { display: block; }
+  .detail-hero {
+    background: var(--black); padding: 100px 40px 80px; position: relative; overflow: hidden;
+  }
+  .detail-hero::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(600px 600px at 80% 50%, rgba(79,110,247,0.15) 0%, transparent 70%),
+                radial-gradient(600px 600px at 20% 50%, rgba(168,85,247,0.1) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .detail-hero-inner { max-width: 1100px; margin: 0 auto; position: relative; }
+  .back-btn {
+    display: inline-flex; align-items: center; gap: 8px; margin-bottom: 32px;
+    font-size: 0.78rem; color: rgba(255,255,255,0.5); cursor: pointer;
+    background: none; border: none; font-family: var(--font-jp);
+    transition: color 0.2s;
+  }
+  .back-btn:hover { color: rgba(255,255,255,0.9); }
+  .detail-tag {
+    display: inline-block; font-family: var(--font-en); font-size: 0.68rem; font-weight: 500;
+    letter-spacing: 0.14em; text-transform: uppercase; color: #a5b4fc;
+    background: rgba(79,110,247,0.15); border: 1px solid rgba(79,110,247,0.3);
+    padding: 4px 12px; border-radius: 100px; margin-bottom: 20px;
+  }
+  .detail-title {
+    font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 700; color: var(--white);
+    line-height: 1.2; margin-bottom: 16px;
+  }
+  .detail-title .grad {
+    background: linear-gradient(90deg, #7eb3ff, #c084fc);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .detail-subtitle { font-size: 0.95rem; color: rgba(255,255,255,0.5); max-width: 560px; line-height: 2; }
+
+  .detail-body { max-width: 1100px; margin: 0 auto; padding: 72px 40px; }
+
+  .detail-section { margin-bottom: 72px; }
+  .detail-section-title {
+    font-size: 1.2rem; font-weight: 700; color: #1a1a2e; margin-bottom: 16px;
+    padding-bottom: 12px; border-bottom: 2px solid var(--gray-bg);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .detail-section-title::before {
+    content: ''; width: 4px; height: 20px; border-radius: 2px;
+    background: linear-gradient(to bottom, var(--accent), var(--accent2));
     flex-shrink: 0;
   }
-  .div-name {
-    font-size: 0.88rem;
-    font-weight: 700;
-    color: #1a1a2e;
-    line-height: 1.35;
+  .detail-text { font-size: 0.9rem; color: var(--gray-text); line-height: 2.2; }
+
+  .detail-images {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 32px;
   }
-  .div-desc {
-    font-size: 0.76rem;
-    color: var(--gray-text);
-    line-height: 1.85;
+  .detail-img-wrap { border-radius: 12px; overflow: hidden; }
+  .detail-img-wrap img {
+    width: 100%; aspect-ratio: 16/10; object-fit: cover; display: block;
+    transition: transform 0.4s ease;
   }
-  .div-tag {
-    display: inline-block;
-    margin-top: 12px;
-    font-family: var(--font-en);
-    font-size: 0.62rem;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    background: linear-gradient(90deg, var(--accent), var(--accent2));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    border: 1px solid rgba(79,110,247,0.2);
-    padding: 2px 10px;
-    border-radius: 100px;
+  .detail-img-wrap:hover img { transform: scale(1.04); }
+  .detail-img-placeholder {
+    width: 100%; aspect-ratio: 16/10; display: flex; align-items: center; justify-content: center; font-size: 2.5rem;
   }
 
-  /* ===== CONTACT ===== */
-  .contact-wrap {
-    max-width: 680px;
-    margin: 0 auto;
-    padding: 90px 40px;
-    text-align: center;
-  }
-  .contact-box {
-    background: var(--white);
+  .detail-points { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 24px; }
+  .detail-point {
+    background: var(--gray-bg); border-radius: 10px; padding: 20px 22px;
     border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 56px 48px;
-    box-shadow: 0 4px 40px rgba(79,110,247,0.07);
   }
-  .contact-box h2 {
-    font-size: 1.7rem;
-    font-weight: 700;
-    margin-bottom: 10px;
-    color: #1a1a2e;
+  .detail-point strong {
+    display: block; font-size: 0.84rem; font-weight: 700; color: #1a1a2e; margin-bottom: 6px;
   }
-  .contact-box p {
-    font-size: 0.86rem;
-    color: var(--gray-text);
-    line-height: 2;
-    margin-bottom: 36px;
+  .detail-point span { font-size: 0.78rem; color: var(--gray-text); line-height: 1.8; }
+
+  .detail-cta {
+    background: linear-gradient(135deg, #0f0c29, #1a1a2e);
+    border-radius: 16px; padding: 48px 40px; text-align: center; margin-top: 48px;
   }
-  .contact-buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    align-items: stretch;
+  .detail-cta h3 { font-size: 1.4rem; font-weight: 700; color: var(--white); margin-bottom: 10px; }
+  .detail-cta p { font-size: 0.86rem; color: rgba(255,255,255,0.5); margin-bottom: 28px; line-height: 2; }
+
+  /* ===== MEMBER PAGE ===== */
+  .member-hero {
+    background: var(--black); padding: 120px 40px 80px; position: relative; overflow: hidden;
   }
+  .member-hero::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(600px 600px at 30% 50%, rgba(79,110,247,0.12) 0%, transparent 70%),
+                radial-gradient(600px 600px at 80% 50%, rgba(168,85,247,0.1) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .member-hero-inner { max-width: 1100px; margin: 0 auto; position: relative; text-align: center; }
+  .member-hero-inner h1 {
+    font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; color: var(--white);
+    margin-bottom: 16px; line-height: 1.25;
+  }
+  .member-hero-inner p { font-size: 0.9rem; color: rgba(255,255,255,0.5); line-height: 2; }
+
+  .member-body { max-width: 900px; margin: 0 auto; padding: 80px 40px; }
+
+  /* CEO card */
+  .ceo-card {
+    background: linear-gradient(135deg, #0f0c29, #1e1b4b);
+    border-radius: 20px; padding: 56px 48px; margin-bottom: 56px;
+    border: 1px solid rgba(79,110,247,0.2);
+    position: relative; overflow: hidden;
+  }
+  .ceo-card::before {
+    content: ''; position: absolute; top: -80px; right: -80px;
+    width: 300px; height: 300px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(168,85,247,0.15), transparent 70%);
+    pointer-events: none;
+  }
+  .ceo-badge {
+    display: inline-block; font-family: var(--font-en); font-size: 0.65rem; font-weight: 600;
+    letter-spacing: 0.14em; text-transform: uppercase; color: #a5b4fc;
+    background: rgba(79,110,247,0.2); border: 1px solid rgba(79,110,247,0.3);
+    padding: 4px 14px; border-radius: 100px; margin-bottom: 24px;
+  }
+  .ceo-card h2 {
+    font-size: 1.5rem; font-weight: 700; color: var(--white); margin-bottom: 28px;
+    line-height: 1.3;
+  }
+  .ceo-card h2 .grad {
+    background: linear-gradient(90deg, #7eb3ff, #c084fc);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .ceo-text { font-size: 0.88rem; color: rgba(255,255,255,0.65); line-height: 2.3; }
+  .ceo-text p { margin-bottom: 16px; }
+  .ceo-text p:last-child { margin-bottom: 0; }
+  .ceo-sig {
+    margin-top: 36px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.1);
+    font-size: 0.78rem; color: rgba(255,255,255,0.35); font-family: var(--font-en);
+    letter-spacing: 0.1em;
+  }
+
+  /* Member cards */
+  .member-cards { display: flex; flex-direction: column; gap: 24px; }
+  .member-card {
+    background: var(--white); border: 1px solid var(--border); border-radius: 16px;
+    padding: 36px 40px; transition: box-shadow 0.25s;
+  }
+  .member-card:hover { box-shadow: 0 8px 32px rgba(79,110,247,0.1); }
+  .member-card-head {
+    display: flex; align-items: center; gap: 16px; margin-bottom: 20px;
+  }
+  .member-avatar {
+    width: 52px; height: 52px; border-radius: 50%; flex-shrink: 0;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem;
+  }
+  .member-info-head {}
+  .member-role {
+    font-family: var(--font-en); font-size: 0.65rem; font-weight: 600;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent);
+    margin-bottom: 4px;
+  }
+  .member-name { font-size: 0.95rem; font-weight: 700; color: #1a1a2e; }
+  .member-text { font-size: 0.86rem; color: var(--gray-text); line-height: 2.2; }
+
+  /* ===== CONTACT ===== */
+  .contact-wrap { max-width: 680px; margin: 0 auto; padding: 90px 40px; text-align: center; }
+  .contact-box {
+    background: var(--white); border: 1px solid var(--border); border-radius: 16px;
+    padding: 56px 48px; box-shadow: 0 4px 40px rgba(79,110,247,0.07);
+  }
+  .contact-box h2 { font-size: 1.7rem; font-weight: 700; margin-bottom: 10px; color: #1a1a2e; }
+  .contact-box p { font-size: 0.86rem; color: var(--gray-text); line-height: 2; margin-bottom: 36px; }
+  .contact-buttons { display: flex; flex-direction: column; gap: 10px; align-items: stretch; }
   .contact-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    padding: 14px 20px;
-    border-radius: 8px;
-    font-size: 0.86rem;
-    font-weight: 500;
-    text-decoration: none;
-    transition: opacity 0.2s, transform 0.2s;
-    font-family: var(--font-jp);
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    padding: 14px 20px; border-radius: 8px; font-size: 0.86rem; font-weight: 500;
+    text-decoration: none; transition: opacity 0.2s, transform 0.2s; font-family: var(--font-jp);
   }
   .contact-btn:hover { opacity: 0.86; transform: translateY(-1px); }
-  .contact-btn.google {
-    background: linear-gradient(135deg, var(--accent), #6366f1);
-    color: #fff;
-  }
-  .contact-btn.mail {
-    background: #1a1a2e;
-    color: #fff;
-  }
+  .contact-btn.google { background: linear-gradient(135deg, var(--accent), #6366f1); color: #fff; }
+  .contact-btn.mail { background: #1a1a2e; color: #fff; }
   .contact-btn.insta {
     background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
     color: #fff;
   }
-  .contact-btn svg {
-    width: 18px; height: 18px;
-    fill: currentColor;
-    flex-shrink: 0;
-  }
-  .divider-text {
-    font-size: 0.72rem;
-    color: var(--gray-mid);
-    padding: 2px 0;
-  }
+  .contact-btn svg { width: 18px; height: 18px; fill: currentColor; flex-shrink: 0; }
+  .divider-text { font-size: 0.72rem; color: var(--gray-mid); padding: 2px 0; }
 
   /* ===== FOOTER ===== */
   footer {
-    background: var(--black);
-    color: rgba(255,255,255,0.35);
-    padding: 40px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 16px;
+    background: var(--black); color: rgba(255,255,255,0.35); padding: 40px;
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;
   }
-  .footer-logo img {
-    height: 32px;
-    width: auto;
-    object-fit: contain;
-    opacity: 0.85;
-  }
+  .footer-logo img { height: 32px; width: auto; object-fit: contain; opacity: 0.85; }
   footer p { font-size: 0.72rem; }
 
   /* ===== RESPONSIVE ===== */
   @media (max-width: 768px) {
     nav { padding: 0 20px; }
     .nav-links { display: none; }
-    .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    .about-grid, .detail-points { grid-template-columns: 1fr; gap: 32px; }
     .divisions-grid { grid-template-columns: 1fr; }
-    .section-wrap { padding: 64px 20px; }
-    .contact-wrap { padding: 64px 20px; }
-    .contact-box { padding: 36px 22px; }
-    .stats-inner { grid-template-columns: repeat(2, 1fr); padding: 0; }
+    .detail-images { grid-template-columns: 1fr; }
+    .section-wrap, .detail-body, .member-body { padding: 56px 20px; }
+    .contact-wrap { padding: 56px 20px; }
+    .contact-box, .ceo-card { padding: 32px 22px; }
+    .member-card { padding: 28px 22px; }
+    .stats-inner { grid-template-columns: repeat(2, 1fr); }
     .stats-bar { padding: 36px 20px; }
     footer { padding: 28px 20px; flex-direction: column; text-align: center; }
     .div-header { flex-direction: column; align-items: flex-start; gap: 8px; }
-    .hero { padding: 80px 24px 100px; }
+    .hero, .detail-hero, .member-hero { padding: 80px 24px 60px; }
   }
 </style>
 </head>
@@ -591,315 +473,682 @@
 
 <!-- NAV -->
 <nav>
-  <a class="nav-logo" href="#">
+  <a class="nav-logo" href="#" onclick="showPage('home'); return false;">
     <img src="logo.png" alt="Pylex Group">
   </a>
   <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#divisions">事業紹介</a></li>
-    <li><a href="#contact">Contact</a></li>
+    <li><a onclick="showPage('home'); scrollToSection('about');">About</a></li>
+    <li><a onclick="showPage('home'); scrollToSection('divisions');">事業紹介</a></li>
+    <li><a onclick="showPage('member');">Member</a></li>
+    <li><a onclick="showPage('home'); scrollToSection('contact');">Contact</a></li>
   </ul>
-  <a href="#contact" class="nav-contact">お問い合わせ</a>
+  <a class="nav-contact" onclick="showPage('home'); scrollToSection('contact');">お問い合わせ</a>
 </nav>
 
-<!-- HERO -->
-<section class="hero">
-  <img class="hero-logo" src="logo.png" alt="Pylex">
-  <p class="hero-tag">SNS × Marketing × Monetization</p>
-  <h1>
-    デジタルで、<br>
-    ビジネスの<span class="grad">新しい当たり前</span>を<br>
-    つくる。
-  </h1>
-  <p class="hero-sub">
-    Pylex Groupは、SNSマーケティングを中心に複数の事業を展開するスタートアップ企業です。若年層へのリーチ力とスピード感のある実行力を強みに、デジタル領域での収益化・集客支援を行っています。
-  </p>
-  <div class="hero-actions">
-    <a href="#divisions" class="btn-main">事業紹介を見る</a>
-    <a href="#contact" class="btn-sub">お問い合わせ</a>
-  </div>
-  <div class="hero-scroll">
-    <div class="scroll-dot"></div>
-    <span>Scroll</span>
-  </div>
-</section>
+<!-- ==================== HOME PAGE ==================== -->
+<div id="page-home" class="page active">
 
-<!-- STATS -->
-<div class="stats-bar">
-  <div class="stats-inner">
-    <div class="stat-item reveal">
-      <div class="stat-num">7+</div>
-      <div class="stat-label">事業部門</div>
+  <!-- HERO -->
+  <section class="hero">
+    <img class="hero-logo" src="logo.png" alt="Pylex">
+    <p class="hero-tag">SNS × Marketing × Monetization</p>
+    <h1>デジタルで、<br>ビジネスの<span class="grad">新しい当たり前</span>を<br>つくる。</h1>
+    <p class="hero-sub">Pylex Groupは、SNSマーケティングを中心に複数の事業を展開するスタートアップ企業です。若年層へのリーチ力とスピード感のある実行力を強みに、デジタル領域での収益化・集客支援を行っています。</p>
+    <div class="hero-actions">
+      <button class="btn-main" onclick="showPage('home'); scrollToSection('divisions');">事業紹介を見る</button>
+      <button class="btn-sub" onclick="showPage('home'); scrollToSection('contact');">お問い合わせ</button>
     </div>
-    <div class="stat-item reveal reveal-delay-1">
-      <div class="stat-num">30K</div>
-      <div class="stat-label">対応インフルエンサー規模</div>
+    <div class="hero-scroll">
+      <div class="scroll-dot"></div>
+      <span>Scroll</span>
     </div>
-    <div class="stat-item reveal reveal-delay-2">
-      <div class="stat-num">SNS</div>
-      <div class="stat-label">マーケティングを軸に</div>
-    </div>
-    <div class="stat-item reveal reveal-delay-3">
-      <div class="stat-num">∞</div>
-      <div class="stat-label">成長の可能性</div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats-bar">
+    <div class="stats-inner">
+      <div class="stat-item reveal"><div class="stat-num">9+</div><div class="stat-label">事業部門</div></div>
+      <div class="stat-item reveal reveal-delay-1"><div class="stat-num">30K</div><div class="stat-label">対応インフルエンサー規模</div></div>
+      <div class="stat-item reveal reveal-delay-2"><div class="stat-num">SNS</div><div class="stat-label">マーケティングを軸に</div></div>
+      <div class="stat-item reveal reveal-delay-3"><div class="stat-num">∞</div><div class="stat-label">成長の可能性</div></div>
     </div>
   </div>
+
+  <!-- ABOUT -->
+  <section class="light" id="about">
+    <div class="section-wrap">
+      <div class="about-grid">
+        <div class="reveal-left">
+          <p class="section-label">About</p>
+          <h2 class="section-title">Pylex Groupについて</h2>
+          <p style="font-size:0.88rem;color:var(--gray-text);line-height:2.1;margin-bottom:14px;">「SNS × マーケティング × 収益化」を軸に、複数の事業を横断的に連携させています。各事業は独立しながらも相互にシナジーを生み出し、企業や個人の収益最大化を支援します。</p>
+          <p style="font-size:0.88rem;color:var(--gray-text);line-height:2.1;margin-bottom:0;">現在は少人数チームでスピーディーに事業を拡大中。将来的には大規模なマーケティング会社として成長することを目標としています。</p>
+          <div class="feature-list">
+            <div class="feature-item"><div class="f-icon">🚀</div><div><strong>スピードと実行力</strong><span>トライアンドエラーを繰り返しながら事業を高速で拡大。アイデアをすぐにかたちにします。</span></div></div>
+            <div class="feature-item"><div class="f-icon">🔗</div><div><strong>事業横断のシナジー</strong><span>各事業が連携し合い、グループ全体として最大の効果を生み出します。</span></div></div>
+            <div class="feature-item"><div class="f-icon">📱</div><div><strong>若年層へのリーチ</strong><span>SNSを活用した集客・収益化を得意とし、デジタルネイティブな市場を攻略します。</span></div></div>
+          </div>
+        </div>
+        <div class="reveal-right">
+          <div class="about-img-wrap">
+            <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80" alt="チームワーク" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+            <div class="about-img-placeholder" style="display:none;">🌐</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DIVISIONS -->
+  <section class="gray" id="divisions">
+    <div class="section-wrap">
+      <div class="div-header reveal">
+        <div>
+          <p class="section-label">Divisions</p>
+          <h2 class="section-title">事業紹介</h2>
+        </div>
+        <p class="section-desc" style="max-width:260px;text-align:right;">各カードをクリックすると詳細をご覧いただけます。</p>
+      </div>
+      <div class="divisions-grid">
+
+        <div class="div-card reveal reveal-delay-1" onclick="showDetail('influencer')">
+          <img class="div-card-img" src="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=600&q=75" alt="インフルエンサー" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="div-card-img-placeholder" style="display:none;background:linear-gradient(135deg,#1a1a2e,#302b63);">👥</div>
+          <div class="div-card-body">
+            <div class="div-card-head"><div class="div-icon">👥</div><div class="div-name">インフルエンサー事業部</div></div>
+            <p class="div-desc">マイクロインフルエンサーを中心に企業とのベストマッチングを実現。</p>
+            <span class="div-tag">Influencer</span><br>
+            <span class="div-more">詳細を見る</span>
+          </div>
+        </div>
+
+        <div class="div-card reveal reveal-delay-2" onclick="showDetail('creative')">
+          <img class="div-card-img" src="https://images.unsplash.com/photo-1536240478700-b869ad10a2ab?w=600&q=75" alt="クリエイティブ" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="div-card-img-placeholder" style="display:none;background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);">🎬</div>
+          <div class="div-card-body">
+            <div class="div-card-head"><div class="div-icon">🎬</div><div class="div-name">クリエイティブ事業部</div></div>
+            <p class="div-desc">AIを活用した動画制作・SNS運用・Webサイト制作まで。</p>
+            <span class="div-tag">Creative</span><br>
+            <span class="div-more">詳細を見る</span>
+          </div>
+        </div>
+
+        <div class="div-card reveal reveal-delay-3" onclick="showDetail('digital')">
+          <img class="div-card-img" src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=75" alt="デジタルマーケティング" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="div-card-img-placeholder" style="display:none;background:linear-gradient(135deg,#134e5e,#71b280);">📊</div>
+          <div class="div-card-body">
+            <div class="div-card-head"><div class="div-icon">📊</div><div class="div-name">デジタルマーケティング事業部</div></div>
+            <p class="div-desc">SNSを活用したアフィリエイト・収益化支援。</p>
+            <span class="div-tag">Digital Marketing</span><br>
+            <span class="div-more">詳細を見る</span>
+          </div>
+        </div>
+
+        <div class="div-card reveal reveal-delay-1" onclick="showDetail('consulting')">
+          <img class="div-card-img" src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&q=75" alt="コンサルティング" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="div-card-img-placeholder" style="display:none;background:linear-gradient(135deg,#1a1a2e,#4f6ef7);">💡</div>
+          <div class="div-card-body">
+            <div class="div-card-head"><div class="div-icon">💡</div><div class="div-name">コンサルティング事業部</div></div>
+            <p class="div-desc">得たノウハウを法人・個人向けに教育・コンサルティング。</p>
+            <span class="div-tag">Consulting</span><br>
+            <span class="div-more">詳細を見る</span>
+          </div>
+        </div>
+
+        <div class="div-card reveal reveal-delay-2" onclick="showDetail('sales')">
+          <img class="div-card-img" src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=600&q=75" alt="営業代行" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="div-card-img-placeholder" style="display:none;background:linear-gradient(135deg,#232526,#414345);">📡</div>
+          <div class="div-card-body">
+            <div class="div-card-head"><div class="div-icon">📡</div><div class="div-name">営業代行事業部</div></div>
+            <p class="div-desc">訪問営業を中心とした通信回線の営業代行。</p>
+            <span class="div-tag">Sales Agency</span><br>
+            <span class="div-more">詳細を見る</span>
+          </div>
+        </div>
+
+        <div class="div-card reveal reveal-delay-3" onclick="showDetail('apparel')">
+          <img class="div-card-img" src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=600&q=75" alt="アパレル" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="div-card-img-placeholder" style="display:none;background:linear-gradient(135deg,#2c003e,#8e0e00);">👗</div>
+          <div class="div-card-body">
+            <div class="div-card-head"><div class="div-icon">👗</div><div class="div-name">アパレル事業部</div></div>
+            <p class="div-desc">独自ブランド「Pylex Legend」を運営。</p>
+            <span class="div-tag">Pylex Legend</span><br>
+            <span class="div-more">詳細を見る</span>
+          </div>
+        </div>
+
+        <div class="div-card reveal reveal-delay-1" onclick="showDetail('realestate')">
+          <img class="div-card-img" src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&q=75" alt="不動産" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="div-card-img-placeholder" style="display:none;background:linear-gradient(135deg,#1a1a2e,#2d4a8a);">🏙️</div>
+          <div class="div-card-body">
+            <div class="div-card-head"><div class="div-icon">🏙️</div><div class="div-name">不動産事業部</div></div>
+            <p class="div-desc">不動産仲介から将来的には売買事業へ展開。</p>
+            <span class="div-tag">Real Estate</span><br>
+            <span class="div-more">詳細を見る</span>
+          </div>
+        </div>
+
+        <div class="div-card reveal reveal-delay-2" onclick="showDetail('entertainment')">
+          <img class="div-card-img" src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=600&q=75" alt="エンターテイメント" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="div-card-img-placeholder" style="display:none;background:linear-gradient(135deg,#1f003e,#9b00d3);">🎭</div>
+          <div class="div-card-body">
+            <div class="div-card-head"><div class="div-icon">🎭</div><div class="div-name">エンターテイメント事業部</div></div>
+            <p class="div-desc">イベント・クラブ運営から大規模フェスへ。</p>
+            <span class="div-tag">Entertainment</span><br>
+            <span class="div-more">詳細を見る</span>
+          </div>
+        </div>
+
+        <div class="div-card reveal reveal-delay-3" onclick="showDetail('telecom')">
+          <img class="div-card-img" src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&q=75" alt="通信事業部" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="div-card-img-placeholder" style="display:none;background:linear-gradient(135deg,#0f2460,#1a4a9e);">📶</div>
+          <div class="div-card-body">
+            <div class="div-card-head"><div class="div-icon">📶</div><div class="div-name">通信事業部</div></div>
+            <p class="div-desc">イオンモール等でのイベント運営と通信契約営業。</p>
+            <span class="div-tag">Telecom</span><br>
+            <span class="div-more">詳細を見る</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="light" id="contact">
+    <div class="contact-wrap">
+      <div class="contact-box reveal-scale">
+        <h2>お問い合わせ</h2>
+        <p>事業提携・インフルエンサー登録・お仕事のご依頼など、<br>お気軽にご連絡ください。</p>
+        <div class="contact-buttons">
+          <a href="https://docs.google.com/forms/d/e/YOUR_FORM_ID/viewform" target="_blank" class="contact-btn google">
+            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+            Googleフォームで問い合わせる
+          </a>
+          <p class="divider-text">または</p>
+          <a href="mailto:info.pylexlegend@gmail.com" class="contact-btn mail">
+            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+            info.pylexlegend@gmail.com
+          </a>
+          <p class="divider-text">SNSでも受け付けています</p>
+          <a href="https://www.instagram.com/pylexgroup" target="_blank" class="contact-btn insta">
+            <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            InstagramのDMで問い合わせる
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-logo"><img src="logo.png" alt="Pylex Group"></div>
+    <p>© 2025 Pylex Group. All rights reserved.</p>
+  </footer>
+
+</div><!-- /page-home -->
+
+
+<!-- ==================== DETAIL PAGES ==================== -->
+
+<!-- INFLUENCER -->
+<div id="page-detail-influencer" class="page">
+  <div class="detail-hero">
+    <div class="detail-hero-inner">
+      <button class="back-btn" onclick="showPage('home'); scrollToSection('divisions');">← 事業紹介に戻る</button>
+      <p class="detail-tag">Influencer</p>
+      <h1 class="detail-title">インフルエンサー<span class="grad">事業部</span></h1>
+      <p class="detail-subtitle">マイクロインフルエンサーと企業をつなぐ、次世代のマーケティングプラットフォーム</p>
+    </div>
+  </div>
+  <div class="detail-body">
+    <div class="detail-section reveal">
+      <h2 class="detail-section-title">事業概要</h2>
+      <p class="detail-text">インフルエンサー事業部は、フォロワー1,000〜30,000人規模のマイクロインフルエンサーとPRをしたい企業の仲介を行います。単なるマッチングにとどまらず、後には広告代理店として企画から提案まで行い、最適なインフルエンサーをキャスティングすることを目標としています。</p>
+    </div>
+    <div class="detail-section reveal">
+      <h2 class="detail-section-title">イメージ</h2>
+      <div class="detail-images">
+        <div class="detail-img-wrap reveal reveal-delay-1"><img src="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=700&q=80" alt="" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'detail-img-placeholder\' style=\'background:linear-gradient(135deg,#1a1a2e,#302b63)\'>📱</div>'"></div>
+        <div class="detail-img-wrap reveal reveal-delay-2"><img src="https://images.unsplash.com/photo-1562577309-4932fdd64cd1?w=700&q=80" alt="" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'detail-img-placeholder\' style=\'background:linear-gradient(135deg,#302b63,#4f6ef7)\'>👥</div>'"></div>
+        <div class="detail-img-wrap reveal reveal-delay-3"><img src="https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?w=700&q=80" alt="" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'detail-img-placeholder\' style=\'background:linear-gradient(135deg,#1a1a2e,#a855f7)\'>✨</div>'"></div>
+      </div>
+    </div>
+    <div class="detail-section reveal">
+      <h2 class="detail-section-title">強みと特徴</h2>
+      <div class="detail-points">
+        <div class="detail-point reveal reveal-delay-1"><strong>🎯 マイクロインフルエンサー特化</strong><span>大手より高いエンゲージメント率を誇るマイクロインフルエンサーを厳選し、費用対効果の高いプロモーションを実現します。</span></div>
+        <div class="detail-point reveal reveal-delay-2"><strong>🤝 双方向のベストマッチング</strong><span>企業のニーズとインフルエンサーの世界観を丁寧にすり合わせ、自然なPRを実現します。</span></div>
+        <div class="detail-point reveal reveal-delay-3"><strong>📈 広告代理店へのステップアップ</strong><span>将来的には企画・提案からキャスティングまで一貫して担う広告代理店機能を目指します。</span></div>
+        <div class="detail-point reveal reveal-delay-4"><strong>💼 SNSプロモーション支援</strong><span>投稿内容のディレクションやレポーティングまでトータルでサポートします。</span></div>
+      </div>
+    </div>
+    <div class="detail-cta reveal">
+      <h3>インフルエンサー登録・企業のご相談はこちら</h3>
+      <p>インフルエンサーとして活躍したい方、PR案件をご検討の企業様、お気軽にご連絡ください。</p>
+      <button class="btn-main" onclick="showPage('home'); scrollToSection('contact');">お問い合わせ</button>
+    </div>
+  </div>
+  <footer><div class="footer-logo"><img src="logo.png" alt="Pylex Group"></div><p>© 2025 Pylex Group. All rights reserved.</p></footer>
 </div>
 
-<!-- ABOUT -->
-<section class="light" id="about">
-  <div class="section-wrap">
-    <div class="about-grid">
-      <div class="reveal-left">
-        <p class="section-label">About</p>
-        <h2 class="section-title">Pylex Groupについて</h2>
-        <p class="about-text" style="font-size:0.88rem;color:var(--gray-text);line-height:2.1;margin-bottom:14px;">
-          「SNS × マーケティング × 収益化」を軸に、複数の事業を横断的に連携させています。各事業は独立しながらも相互にシナジーを生み出し、企業や個人の収益最大化を支援します。
-        </p>
-        <p class="about-text" style="font-size:0.88rem;color:var(--gray-text);line-height:2.1;margin-bottom:0;">
-          現在は少人数チームでスピーディーに事業を拡大中。将来的には大規模なマーケティング会社として成長することを目標としています。
-        </p>
-        <div class="feature-list">
-          <div class="feature-item">
-            <div class="f-icon">🚀</div>
-            <div>
-              <strong>スピードと実行力</strong>
-              <span>トライアンドエラーを繰り返しながら事業を高速で拡大。アイデアをすぐにかたちにします。</span>
-            </div>
-          </div>
-          <div class="feature-item">
-            <div class="f-icon">🔗</div>
-            <div>
-              <strong>事業横断のシナジー</strong>
-              <span>各事業が連携し合い、グループ全体として最大の効果を生み出します。</span>
-            </div>
-          </div>
-          <div class="feature-item">
-            <div class="f-icon">📱</div>
-            <div>
-              <strong>若年層へのリーチ</strong>
-              <span>SNSを活用した集客・収益化を得意とし、デジタルネイティブな市場を攻略します。</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="reveal-right">
-        <!-- About image: チームワーク・デジタルマーケティングのイメージ -->
-        <div class="about-img-wrap">
-          <img
-            src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80"
-            alt="チームワーク"
-            loading="lazy"
-            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
-          >
-          <div class="about-img-placeholder" style="display:none;">🌐</div>
-        </div>
-      </div>
+<!-- CREATIVE -->
+<div id="page-detail-creative" class="page">
+  <div class="detail-hero">
+    <div class="detail-hero-inner">
+      <button class="back-btn" onclick="showPage('home'); scrollToSection('divisions');">← 事業紹介に戻る</button>
+      <p class="detail-tag">Creative</p>
+      <h1 class="detail-title">クリエイティブ<span class="grad">事業部</span></h1>
+      <p class="detail-subtitle">AIを使いこなし、うちの会社にしかできないコンテンツを生み出す</p>
     </div>
   </div>
-</section>
-
-<!-- DIVISIONS -->
-<section class="gray" id="divisions">
-  <div class="section-wrap">
-    <div class="div-header reveal">
-      <div>
-        <p class="section-label">Divisions</p>
-        <h2 class="section-title">事業紹介</h2>
-      </div>
-      <p class="section-desc" style="max-width:280px; text-align:right;">SNSとデジタルを軸に、多角的な事業でビジネスをトータルサポート。</p>
+  <div class="detail-body">
+    <div class="detail-section reveal">
+      <h2 class="detail-section-title">事業概要</h2>
+      <p class="detail-text">AIを活用した動画制作・SNS運用・企業PR動画・Webサイト制作などを行います。最新のAI技術を使いこなし、私たちの会社でしかできない唯一無二のクリエイティブを提供し続けます。トレンドを常に捉えながら、企業の魅力を最大限に引き出すコンテンツ制作を行っています。</p>
     </div>
-    <div class="divisions-grid">
-
-      <!-- 01 インフルエンサー -->
-      <div class="div-card reveal reveal-delay-1">
-        <img class="div-card-img"
-          src="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=600&q=75"
-          alt="インフルエンサー" loading="lazy"
-          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-        <div class="div-card-img-placeholder" style="display:none; background:linear-gradient(135deg,#1a1a2e,#302b63);">👥</div>
-        <div class="div-card-body">
-          <div class="div-card-head">
-            <div class="div-icon">👥</div>
-            <div class="div-name">インフルエンサー事業部</div>
-          </div>
-          <p class="div-desc">マイクロインフルエンサー（1,000〜30,000人規模）を中心に企業とのベストマッチングを実現。キャスティングからSNSプロモーション支援まで一貫対応。</p>
-          <span class="div-tag">Influencer</span>
-        </div>
+    <div class="detail-section reveal">
+      <h2 class="detail-section-title">イメージ</h2>
+      <div class="detail-images">
+        <div class="detail-img-wrap reveal reveal-delay-1"><img src="https://images.unsplash.com/photo-1536240478700-b869ad10a2ab?w=700&q=80" alt="" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'detail-img-placeholder\' style=\'background:linear-gradient(135deg,#0f2027,#2c5364)\'>🎬</div>'"></div>
+        <div class="detail-img-wrap reveal reveal-delay-2"><img src="https://images.unsplash.com/photo-1593508512255-86ab42a8e620?w=700&q=80" alt="" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'detail-img-placeholder\' style=\'background:linear-gradient(135deg,#203a43,#2c5364)\'>🤖</div>'"></div>
+        <div class="detail-img-wrap reveal reveal-delay-3"><img src="https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=700&q=80" alt="" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'detail-img-placeholder\' style=\'background:linear-gradient(135deg,#1a1a2e,#203a43)\'>💻</div>'"></div>
       </div>
-
-      <!-- 02 クリエイティブ -->
-      <div class="div-card reveal reveal-delay-2">
-        <img class="div-card-img"
-          src="https://images.unsplash.com/photo-1536240478700-b869ad10a2ab?w=600&q=75"
-          alt="クリエイティブ" loading="lazy"
-          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-        <div class="div-card-img-placeholder" style="display:none; background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);">🎬</div>
-        <div class="div-card-body">
-          <div class="div-card-head">
-            <div class="div-icon">🎬</div>
-            <div class="div-name">クリエイティブ事業部</div>
-          </div>
-          <p class="div-desc">AIを活用した動画制作・SNS運用・企業PR動画・Webサイト制作まで。トレンドを捉えたコンテンツで企業ブランドを強化します。</p>
-          <span class="div-tag">Creative</span>
-        </div>
+    </div>
+    <div class="detail-section reveal">
+      <h2 class="detail-section-title">サービス内容</h2>
+      <div class="detail-points">
+        <div class="detail-point reveal reveal-delay-1"><strong>🎬 AI動画制作</strong><span>最新AIツールを駆使した高品質な動画コンテンツを、スピーディかつコスト効率よく制作します。</span></div>
+        <div class="detail-point reveal reveal-delay-2"><strong>📱 SNS運用代行</strong><span>TikTok・Instagram・YouTubeなど各プラットフォームのトレンドに合わせた運用を代行します。</span></div>
+        <div class="detail-point reveal reveal-delay-3"><strong>🎥 企業PR動画</strong><span>企業の魅力を最大限に引き出すPR動画を、企画から撮影・編集まで一貫して制作します。</span></div>
+        <div class="detail-point reveal reveal-delay-4"><strong>🌐 Webサイト制作</strong><span>デザイン性と機能性を兼ね備えたWebサイトを制作します。</span></div>
       </div>
+    </div>
+    <div class="detail-cta reveal">
+      <h3>クリエイティブのご相談はこちら</h3>
+      <p>動画制作やSNS運用についてお気軽にご相談ください。</p>
+      <button class="btn-main" onclick="showPage('home'); scrollToSection('contact');">お問い合わせ</button>
+    </div>
+  </div>
+  <footer><div class="footer-logo"><img src="logo.png" alt="Pylex Group"></div><p>© 2025 Pylex Group. All rights reserved.</p></footer>
+</div>
 
-      <!-- 03 アフィリエイト -->
-      <div class="div-card reveal reveal-delay-3">
-        <img class="div-card-img"
-          src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=75"
-          alt="アフィリエイト" loading="lazy"
-          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-        <div class="div-card-img-placeholder" style="display:none; background:linear-gradient(135deg,#134e5e,#71b280);">📊</div>
-        <div class="div-card-body">
-          <div class="div-card-head">
-            <div class="div-icon">📊</div>
-            <div class="div-name">アフィリエイト事業部</div>
-          </div>
-          <p class="div-desc">TikTok・SNSを活用したアフィリエイト事業。コンテンツ制作から収益化まで一貫して行い、再現性のある収益モデルを構築します。</p>
-          <span class="div-tag">Affiliate</span>
-        </div>
+<!-- DIGITAL MARKETING -->
+<div id="page-detail-digital" class="page">
+  <div class="detail-hero">
+    <div class="detail-hero-inner">
+      <button class="back-btn" onclick="showPage('home'); scrollToSection('divisions');">← 事業紹介に戻る</button>
+      <p class="detail-tag">Digital Marketing</p>
+      <h1 class="detail-title">デジタルマーケティング<span class="grad">事業部</span></h1>
+      <p class="detail-subtitle">SNSを活用した再現性のある収益モデルを構築し、若者の挑戦を後押しする</p>
+    </div>
+  </div>
+  <div class="detail-body">
+    <div class="detail-section reveal">
+      <h2 class="detail-section-title">事業概要</h2>
+      <p class="detail-text">SNSを活用したアフィリエイト事業を展開。コンテンツ制作から収益化まで一貫して行い、市場分析と検証を繰り返しながら再現性のある収益モデルを構築します。そのノウハウはコンサルティング事業にも繋げていきます。若くして稼ぎたい方、大歓迎です！</p>
+    </div>
+    <div class="detail-section reveal">
+      <h2 class="detail-section-title">イメージ</h2>
+      <div class="detail-images">
+        <div class="detail-img-wrap reveal reveal-delay-1"><img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=700&q=80" alt="" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'detail-img-placeholder\' style=\'background:linear-gradient(135deg,#134e5e,#71b280)\'>📊</div>'"></div>
+        <div class="detail-img-wrap reveal reveal-delay-2"><img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=700&q=80" alt="" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'detail-img-placeholder\' style=\'background:linear-gradient(135deg,#71b280,#134e5e)\'>💹</div>'"></div>
+        <div class="detail-img-wrap reveal reveal-delay-3"><img src="https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?w=700&q=80" alt="" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'detail-img-placeholder\' style=\'background:linear-gradient(135deg,#0f4c81,#134e5e)\'>📱</div>'"></div>
       </div>
-
-      <!-- 04 コンサルティング -->
-      <div class="div-card reveal reveal-delay-1">
-        <img class="div-card-img"
-          src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&q=75"
-          alt="コンサルティング" loading="lazy"
-          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-        <div class="div-card-img-placeholder" style="display:none; background:linear-gradient(135deg,#1a1a2e,#4f6ef7);">💡</div>
-        <div class="div-card-body">
-          <div class="div-card-head">
-            <div class="div-icon">💡</div>
-            <div class="div-name">コンサルティング事業部</div>
-          </div>
-          <p class="div-desc">SNS運用・AI活用・アフィリエイト収益化のノウハウを法人・個人向けに提供。実績ベースの実践的支援を行います。</p>
-          <span class="div-tag">Consulting</span>
-        </div>
+    </div>
+    <div class="detail-section reveal">
+      <h2 class="detail-section-title">特徴</h2>
+      <div class="detail-points">
+        <div class="detail-point reveal reveal-delay-1"><strong>📈 再現性のある収益モデル</strong><span>データに基づいた市場分析と検証を繰り返し、誰でも再現できる収益モデルを構築します。</span></div>
+        <div class="detail-point reveal reveal-delay-2"><strong>💰 若くして稼げる環境</strong><span>年齢・経験不問。やる気さえあれば稼げる仕組みを整えています。若くして稼ぎたい方大歓迎！</span></div>
+        <div class="detail-point reveal reveal-delay-3"><strong>🔗 コンサルへの橋渡し</strong><span>事業で培ったノウハウをコンサルティング事業に還元し、より多くの人を支援します。</span></div>
+        <div class="detail-point reveal reveal-delay-4"><strong>📱 TikTok・SNS特化</strong><span>最もトレンドのSNSプラットフォームを活用し、最大限のリーチと収益を狙います。</span></div>
       </div>
+    </div>
+    <div class="detail-cta reveal">
+      <h3>一緒に稼ぎませんか？</h3>
+      <p>若くして稼ぎたい方、デジタルマーケティングに興味がある方、ぜひご連絡ください。</p>
+      <button class="btn-main" onclick="showPage('home'); scrollToSection('contact');">お問い合わせ</button>
+    </div>
+  </div>
+  <footer><div class="footer-logo"><img src="logo.png" alt="Pylex Group"></div><p>© 2025 Pylex Group. All rights reserved.</p></footer>
+</div>
 
-      <!-- 05 営業代行 -->
-      <div class="div-card reveal reveal-delay-2">
-        <img class="div-card-img"
-          src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=600&q=75"
-          alt="営業代行" loading="lazy"
-          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-        <div class="div-card-img-placeholder" style="display:none; background:linear-gradient(135deg,#232526,#414345);">📡</div>
-        <div class="div-card-body">
-          <div class="div-card-head">
-            <div class="div-icon">📡</div>
-            <div class="div-name">営業代行事業部</div>
-          </div>
-          <p class="div-desc">通信商材（光回線等）の訪問営業を中心とした営業代行。確実な実績と成果にコミットします。</p>
-          <span class="div-tag">Sales Agency</span>
-        </div>
+<!-- CONSULTING -->
+<div id="page-detail-consulting" class="page">
+  <div class="detail-hero">
+    <div class="detail-hero-inner">
+      <button class="back-btn" onclick="showPage('home'); scrollToSection('divisions');">← 事業紹介に戻る</button>
+      <p class="detail-tag">Consulting</p>
+      <h1 class="detail-title">コンサルティング<span class="grad">事業部</span></h1>
+      <p class="detail-subtitle">実績から生まれたノウハウを、法人・個人への教育・支援に</p>
+    </div>
+  </div>
+  <div class="detail-body">
+    <div class="detail-section reveal">
+      <h2 class="detail-section-title">事業概要</h2>
+      <p class="detail-text">クリエイティブ事業部やデジタルマーケティング事業部で実際に積み上げてきたノウハウを、法人・個人向けにコンサルティングし教育する事業部です。机上の空論ではなく、実際に成果を出した方法論をそのままお伝えします。</p>
+    </div>
+    <div class="detail-section reveal">
+      <h2 class="detail-section-title">イメージ</h2>
+      <div class="detail-images">
+        <div class="detail-img-wrap reveal reveal-delay-1"><img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=700&q=80" alt="" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'detail-img-placeholder\' style=\'background:linear-gradient(135deg,#1a1a2e,#4f6ef7)\'>💡</div>'"></div>
+        <div class="detail-img-wrap reveal reveal-delay-2"><img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=700&q=80" alt="" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'detail-img-placeholder\' style=\'background:linear-gradient(135deg,#4f6ef7,#a855f7)\'>👥</div>'"></div>
+        <div class="detail-img-wrap reveal reveal-delay-3"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=700&q=80" alt="" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'detail-img-placeholder\' style=\'background:linear-gradient(135deg,#1a1a2e,#302b63)\'>📚</div>'"></div>
       </div>
-
-      <!-- 06 アパレル -->
-      <div class="div-card reveal reveal-delay-3">
-        <img class="div-card-img"
-          src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=600&q=75"
-          alt="アパレル" loading="lazy"
-          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-        <div class="div-card-img-placeholder" style="display:none; background:linear-gradient(135deg,#2c003e,#8e0e00);">👗</div>
-        <div class="div-card-body">
-          <div class="div-card-head">
-            <div class="div-icon">👗</div>
-            <div class="div-name">アパレル事業部</div>
-          </div>
-          <p class="div-desc">独自ブランド「Pylex Legend」を展開予定。グループの世界観をファッションで体現する新たな価値を創造します。</p>
-          <span class="div-tag">Pylex Legend</span>
-        </div>
+    </div>
+    <div class="detail-section reveal">
+      <h2 class="detail-section-title">サービス内容</h2>
+      <div class="detail-points">
+        <div class="detail-point reveal reveal-delay-1"><strong>🏢 法人向けコンサルティング</strong><span>SNS運用・デジタルマーケティング・AI活用について、企業の課題に合わせた戦略を提案します。</span></div>
+        <div class="detail-point reveal reveal-delay-2"><strong>👤 個人向けコンサルティング</strong><span>副業・独立を目指す個人に向けて、収益化のロードマップを一緒に設計します。</span></div>
+        <div class="detail-point reveal reveal-delay-3"><strong>📖 ノウハウ教育</strong><span>SNS収益化・アフィリエイト・AI活用など、実績に基づいた教育プログラムを提供します。</span></div>
+        <div class="detail-point reveal reveal-delay-4"><strong>🔄 継続サポート</strong><span>単発ではなく、成果が出るまで継続的にサポートする体制を整えています。</span></div>
       </div>
+    </div>
+    <div class="detail-cta reveal">
+      <h3>コンサルティングのご相談はこちら</h3>
+      <p>法人・個人問わず、お気軽にご相談ください。</p>
+      <button class="btn-main" onclick="showPage('home'); scrollToSection('contact');">お問い合わせ</button>
+    </div>
+  </div>
+  <footer><div class="footer-logo"><img src="logo.png" alt="Pylex Group"></div><p>© 2025 Pylex Group. All rights reserved.</p></footer>
+</div>
 
-      <!-- 07 不動産 -->
-      <div class="div-card reveal reveal-delay-1">
-        <img class="div-card-img"
-          src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&q=75"
-          alt="不動産" loading="lazy"
-          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-        <div class="div-card-img-placeholder" style="display:none; background:linear-gradient(135deg,#1a1a2e,#2d4a8a);">🏙️</div>
-        <div class="div-card-body">
-          <div class="div-card-head">
-            <div class="div-icon">🏙️</div>
-            <div class="div-name">不動産事業部</div>
-          </div>
-          <p class="div-desc">不動産仲介を軸に、将来的には売買事業への展開も視野に。デジタルマーケティングと不動産を融合した新モデルを構築します。</p>
-          <span class="div-tag">Real Estate</span>
-        </div>
+<!-- SALES -->
+<div id="page-detail-sales" class="page">
+  <div class="detail-hero">
+    <div class="detail-hero-inner">
+      <button class="back-btn" onclick="showPage('home'); scrollToSection('divisions');">← 事業紹介に戻る</button>
+      <p class="detail-tag">Sales Agency</p>
+      <h1 class="detail-title">営業代行<span class="grad">事業部</span></h1>
+      <p class="detail-subtitle">訪問販売で営業スキルを磨き、若くして稼ぐ力を身につける</p>
+    </div>
+  </div>
+  <div class="detail-body">
+    <div class="detail-section reveal">
+      <h2 class="detail-section-title">事業概要</h2>
+      <p class="detail-text">訪問販売を中心とした営業代行事業です。主に通信回線（光回線など）の契約を訪問営業によって獲得します。若くして営業スキルを磨きたい方、しっかり稼ぎたい方は大歓迎です！</p>
+    </div>
+    <div class="detail-section reveal">
+      <h2 class="detail-section-title">イメージ</h2>
+      <div class="detail-images">
+        <div class="detail-img-wrap reveal reveal-delay-1"><img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=700&q=80" alt="" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'detail-img-placeholder\' style=\'background:linear-gradient(135deg,#232526,#414345)\'>🤝</div>'"></div>
+        <div class="detail-img-wrap reveal reveal-delay-2"><img src="https://images.unsplash.com/photo-1556761175-4b46a572b786?w=700&q=80" alt="" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'detail-img-placeholder\' style=\'background:linear-gradient(135deg,#414345,#232526)\'>💼</div>'"></div>
+        <div class="detail-img-wrap reveal reveal-delay-3"><img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=700&q=80" alt="" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'detail-img-placeholder\' style=\'background:linear-gradient(135deg,#232526,#555)\'>📋</div>'"></div>
       </div>
+    </div>
+    <div class="detail-section reveal">
+      <h2 class="detail-section-title">特徴</h2>
+      <div class="detail-points">
+        <div class="detail-point reveal reveal-delay-1"><strong>💪 営業スキルが身につく</strong><span>訪問営業という最前線で、実践的な営業スキルを短期間で習得できます。</span></div>
+        <div class="detail-point reveal reveal-delay-2"><strong>💰 しっかり稼げる</strong><span>成果報酬型のため、頑張った分だけ収入に直結します。若くして高収入を狙えます。</span></div>
+        <div class="detail-point reveal reveal-delay-3"><strong>🌱 未経験歓迎</strong><span>営業未経験でも丁寧にサポートします。やる気のある方なら大歓迎です。</span></div>
+        <div class="detail-point reveal reveal-delay-4"><strong>📡 通信商材に特化</strong><span>需要の高い通信回線の営業で、安定した案件を確保しています。</span></div>
+      </div>
+    </div>
+    <div class="detail-cta reveal">
+      <h3>営業に挑戦したい方はこちら</h3>
+      <p>若くして稼ぎたい方、営業スキルを身につけたい方、ぜひご連絡ください。</p>
+      <button class="btn-main" onclick="showPage('home'); scrollToSection('contact');">お問い合わせ</button>
+    </div>
+  </div>
+  <footer><div class="footer-logo"><img src="logo.png" alt="Pylex Group"></div><p>© 2025 Pylex Group. All rights reserved.</p></footer>
+</div>
 
-      <!-- 08 エンターテイメント -->
-      <div class="div-card reveal reveal-delay-2">
-        <img class="div-card-img"
-          src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=600&q=75"
-          alt="エンターテイメント" loading="lazy"
-          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-        <div class="div-card-img-placeholder" style="display:none; background:linear-gradient(135deg,#1f003e,#9b00d3);">🎭</div>
-        <div class="div-card-body">
-          <div class="div-card-head">
-            <div class="div-icon">🎭</div>
-            <div class="div-name">エンターテイメント事業部</div>
+<!-- APPAREL -->
+<div id="page-detail-apparel" class="page">
+  <div class="detail-hero">
+    <div class="detail-hero-inner">
+      <button class="back-btn" onclick="showPage('home'); scrollToSection('divisions');">← 事業紹介に戻る</button>
+      <p class="detail-tag">Pylex Legend</p>
+      <h1 class="detail-title">アパレル<span class="grad">事業部</span></h1>
+      <p class="detail-subtitle">社長の「服が大好き」という情熱から生まれたブランド「Pylex Legend」</p>
+    </div>
+  </div>
+  <div class="detail-body">
+    <div class="detail-section reveal">
+      <h2 class="detail-section-title">事業概要</h2>
+      <p class="detail-text">社長が服を心から愛しているところから立ち上げたアパレルブランド「Pylex Legend」を運営する事業部です。服が大好きな方、アパレルに興味がある方は大歓迎です！Pylex Groupの世界観をファッションで体現する、新しい価値を創造します。</p>
+    </div>
+    <div class="detail-section reveal">
+      <h2 class="detail-section-title">イメージ</h2>
+      <div class="detail-images">
+        <div class="detail-img-wrap reveal reveal-delay-1"><img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=700&q=80" alt="" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'detail-img-placeholder\' style=\'background:linear-gradient(135deg,#2c003e,#8e0e00)\'>👗</div>'"></div>
+        <div class="detail-img-wrap reveal reveal-delay-2"><img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=700&q=80" alt="" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'detail-img-placeholder\' style=\'background:linear-gradient(135deg,#8e0e00,#2c003e)\'>🛍️</div>'"></div>
+        <div class="detail-img-wrap reveal reveal-delay-3"><img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=700&q=80" alt="" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'detail-img-placeholder\' style=\'background:linear-gradient(135deg,#1a1a2e,#2c003e)\'>✨</div>'"></div>
+      </div>
+    </div>
+    <div class="detail-section reveal">
+      <h2 class="detail-section-title">ブランドについて</h2>
+      <div class="detail-points">
+        <div class="detail-point reveal reveal-delay-1"><strong>👑 Pylex Legend</strong><span>Pylex Groupの精神を体現するオリジナルアパレルブランド。「伝説を作る」という思いを込めています。</span></div>
+        <div class="detail-point reveal reveal-delay-2"><strong>❤️ 服への情熱</strong><span>社長自らが服を愛してやまないからこそ生まれた、本物のこだわりを持つブランドです。</span></div>
+        <div class="detail-point reveal reveal-delay-3"><strong>👕 アパレル好き歓迎</strong><span>服が好きな方、アパレル業界に興味がある方、一緒にブランドを育てましょう。</span></div>
+        <div class="detail-point reveal reveal-delay-4"><strong>🌐 SNSとの連携</strong><span>グループのSNSマーケティング力を活かし、ブランドを効果的に発信します。</span></div>
+      </div>
+    </div>
+    <div class="detail-cta reveal">
+      <h3>Pylex Legendに興味がある方はこちら</h3>
+      <p>ブランドについてのお問い合わせ、コラボのご相談はお気軽にどうぞ。</p>
+      <button class="btn-main" onclick="showPage('home'); scrollToSection('contact');">お問い合わせ</button>
+    </div>
+  </div>
+  <footer><div class="footer-logo"><img src="logo.png" alt="Pylex Group"></div><p>© 2025 Pylex Group. All rights reserved.</p></footer>
+</div>
+
+<!-- REAL ESTATE -->
+<div id="page-detail-realestate" class="page">
+  <div class="detail-hero">
+    <div class="detail-hero-inner">
+      <button class="back-btn" onclick="showPage('home'); scrollToSection('divisions');">← 事業紹介に戻る</button>
+      <p class="detail-tag">Real Estate</p>
+      <h1 class="detail-title">不動産<span class="grad">事業部</span></h1>
+      <p class="detail-subtitle">仲介から始まり、信用を積み上げながら売買事業へ展開する</p>
+    </div>
+  </div>
+  <div class="detail-body">
+    <div class="detail-section reveal">
+      <h2 class="detail-section-title">事業概要</h2>
+      <p class="detail-text">不動産の営業を行う事業部です。まずは不動産仲介を中心にスタートし、会社の信用が積み上がってきたら売買事業も始める予定です。デジタルマーケティングと不動産の融合で、新しい不動産営業のかたちを目指します。</p>
+    </div>
+    <div class="detail-section reveal">
+      <h2 class="detail-section-title">イメージ</h2>
+      <div class="detail-images">
+        <div class="detail-img-wrap reveal reveal-delay-1"><img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=700&q=80" alt="" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'detail-img-placeholder\' style=\'background:linear-gradient(135deg,#1a1a2e,#2d4a8a)\'>🏙️</div>'"></div>
+        <div class="detail-img-wrap reveal reveal-delay-2"><img src="https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=700&q=80" alt="" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'detail-img-placeholder\' style=\'background:linear-gradient(135deg,#2d4a8a,#1a1a2e)\'>🏠</div>'"></div>
+        <div class="detail-img-wrap reveal reveal-delay-3"><img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=700&q=80" alt="" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'detail-img-placeholder\' style=\'background:linear-gradient(135deg,#1a1a2e,#0f2460)\'>🏢</div>'"></div>
+      </div>
+    </div>
+    <div class="detail-section reveal">
+      <h2 class="detail-section-title">事業ロードマップ</h2>
+      <div class="detail-points">
+        <div class="detail-point reveal reveal-delay-1"><strong>🔑 Phase 1：不動産仲介</strong><span>まずは仲介業務からスタート。お客様のニーズに合った物件を丁寧にご提案します。</span></div>
+        <div class="detail-point reveal reveal-delay-2"><strong>🏢 Phase 2：売買事業</strong><span>信用と実績を積み上げた上で、不動産売買事業へと展開していきます。</span></div>
+        <div class="detail-point reveal reveal-delay-3"><strong>📱 デジタルとの融合</strong><span>SNSやデジタルマーケティングを活用した、新しいスタイルの不動産営業を展開します。</span></div>
+        <div class="detail-point reveal reveal-delay-4"><strong>🤝 信頼の積み上げ</strong><span>スピードよりも信頼。一件一件丁寧に向き合い、長期的な関係を築きます。</span></div>
+      </div>
+    </div>
+    <div class="detail-cta reveal">
+      <h3>不動産についてのご相談はこちら</h3>
+      <p>物件探し・不動産営業に関するご相談はお気軽にどうぞ。</p>
+      <button class="btn-main" onclick="showPage('home'); scrollToSection('contact');">お問い合わせ</button>
+    </div>
+  </div>
+  <footer><div class="footer-logo"><img src="logo.png" alt="Pylex Group"></div><p>© 2025 Pylex Group. All rights reserved.</p></footer>
+</div>
+
+<!-- ENTERTAINMENT -->
+<div id="page-detail-entertainment" class="page">
+  <div class="detail-hero">
+    <div class="detail-hero-inner">
+      <button class="back-btn" onclick="showPage('home'); scrollToSection('divisions');">← 事業紹介に戻る</button>
+      <p class="detail-tag">Entertainment</p>
+      <h1 class="detail-title">エンターテイメント<span class="grad">事業部</span></h1>
+      <p class="detail-subtitle">音楽好きが好きを共有できる場所をつくり、Ultra Japanのような大規模イベントへ</p>
+    </div>
+  </div>
+  <div class="detail-body">
+    <div class="detail-section reveal">
+      <h2 class="detail-section-title">事業概要</h2>
+      <p class="detail-text">イベント運営・クラブ運営・大規模イベント企画を通じて、音楽好きが好きを共有できるような環境を作り上げます。最終的にはUltra Japanのような大規模音楽フェスを自分たちで企画・運営することを目標としています。</p>
+    </div>
+    <div class="detail-section reveal">
+      <h2 class="detail-section-title">イメージ</h2>
+      <div class="detail-images">
+        <div class="detail-img-wrap reveal reveal-delay-1"><img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=700&q=80" alt="" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'detail-img-placeholder\' style=\'background:linear-gradient(135deg,#1f003e,#9b00d3)\'>🎭</div>'"></div>
+        <div class="detail-img-wrap reveal reveal-delay-2"><img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=700&q=80" alt="" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'detail-img-placeholder\' style=\'background:linear-gradient(135deg,#9b00d3,#1f003e)\'>🎵</div>'"></div>
+        <div class="detail-img-wrap reveal reveal-delay-3"><img src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=700&q=80" alt="" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'detail-img-placeholder\' style=\'background:linear-gradient(135deg,#1f003e,#4f6ef7)\'>🎶</div>'"></div>
+      </div>
+    </div>
+    <div class="detail-section reveal">
+      <h2 class="detail-section-title">目指す世界</h2>
+      <div class="detail-points">
+        <div class="detail-point reveal reveal-delay-1"><strong>🎪 イベント運営</strong><span>小規模なイベントから始まり、規模を拡大しながら音楽コミュニティを育てます。</span></div>
+        <div class="detail-point reveal reveal-delay-2"><strong>🎧 クラブ運営</strong><span>音楽好きが集まれる場所を提供し、カルチャーを生み出す拠点を作ります。</span></div>
+        <div class="detail-point reveal reveal-delay-3"><strong>🏟️ 大規模フェスへ</strong><span>最終目標はUltra Japanのような大規模音楽フェスの自主企画・運営です。</span></div>
+        <div class="detail-point reveal reveal-delay-4"><strong>📱 SNSとの連携</strong><span>イベント情報発信にSNSマーケティングを活用し、集客力を最大化します。</span></div>
+      </div>
+    </div>
+    <div class="detail-cta reveal">
+      <h3>イベントに関するご相談はこちら</h3>
+      <p>イベント出演・コラボ・協賛などのご相談はお気軽にどうぞ。</p>
+      <button class="btn-main" onclick="showPage('home'); scrollToSection('contact');">お問い合わせ</button>
+    </div>
+  </div>
+  <footer><div class="footer-logo"><img src="logo.png" alt="Pylex Group"></div><p>© 2025 Pylex Group. All rights reserved.</p></footer>
+</div>
+
+<!-- TELECOM -->
+<div id="page-detail-telecom" class="page">
+  <div class="detail-hero">
+    <div class="detail-hero-inner">
+      <button class="back-btn" onclick="showPage('home'); scrollToSection('divisions');">← 事業紹介に戻る</button>
+      <p class="detail-tag">Telecom</p>
+      <h1 class="detail-title">通信<span class="grad">事業部</span></h1>
+      <p class="detail-subtitle">イオンモール等でのイベント運営を通じて、SIM・端末契約を獲得する</p>
+    </div>
+  </div>
+  <div class="detail-body">
+    <div class="detail-section reveal">
+      <h2 class="detail-section-title">事業概要</h2>
+      <p class="detail-text">イオンモールなどの商業施設でガラポンやビンゴなどのイベントを運営し、そのイベントを通じて携帯のSIMや端末を契約していただく営業を行う事業部です。楽しいイベントを演出しながら、自然な形で通信契約につなげます。</p>
+    </div>
+    <div class="detail-section reveal">
+      <h2 class="detail-section-title">イメージ</h2>
+      <div class="detail-images">
+        <div class="detail-img-wrap reveal reveal-delay-1"><img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=700&q=80" alt="" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'detail-img-placeholder\' style=\'background:linear-gradient(135deg,#0f2460,#1a4a9e)\'>📶</div>'"></div>
+        <div class="detail-img-wrap reveal reveal-delay-2"><img src="https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=700&q=80" alt="" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'detail-img-placeholder\' style=\'background:linear-gradient(135deg,#1a4a9e,#0f2460)\'>📱</div>'"></div>
+        <div class="detail-img-wrap reveal reveal-delay-3"><img src="https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=700&q=80" alt="" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'detail-img-placeholder\' style=\'background:linear-gradient(135deg,#0f2460,#4f6ef7)\'>🎯</div>'"></div>
+      </div>
+    </div>
+    <div class="detail-section reveal">
+      <h2 class="detail-section-title">特徴</h2>
+      <div class="detail-points">
+        <div class="detail-point reveal reveal-delay-1"><strong>🎰 楽しいイベント演出</strong><span>ガラポン・ビンゴなど、来場者が楽しめるイベントを企画・運営します。</span></div>
+        <div class="detail-point reveal reveal-delay-2"><strong>🏬 商業施設での展開</strong><span>イオンモール等の集客力のある商業施設を活用し、多くのお客様にアプローチします。</span></div>
+        <div class="detail-point reveal reveal-delay-3"><strong>📱 SIM・端末契約</strong><span>イベントを通じて自然な形で携帯のSIMや端末の契約につなげます。</span></div>
+        <div class="detail-point reveal reveal-delay-4"><strong>🤝 エンタメ×営業</strong><span>エンターテイメント事業部との連携で、より魅力的なイベント体験を提供します。</span></div>
+      </div>
+    </div>
+    <div class="detail-cta reveal">
+      <h3>通信事業部へのお問い合わせ</h3>
+      <p>イベント出展・通信契約についてのご相談はお気軽にどうぞ。</p>
+      <button class="btn-main" onclick="showPage('home'); scrollToSection('contact');">お問い合わせ</button>
+    </div>
+  </div>
+  <footer><div class="footer-logo"><img src="logo.png" alt="Pylex Group"></div><p>© 2025 Pylex Group. All rights reserved.</p></footer>
+</div>
+
+
+<!-- ==================== MEMBER PAGE ==================== -->
+<div id="page-member" class="page">
+  <div class="member-hero">
+    <div class="member-hero-inner">
+      <p class="detail-tag" style="display:inline-block;margin-bottom:20px;">Member</p>
+      <h1>私たちのチーム</h1>
+      <p>Pylex Groupを動かす代表・各事業部主任からのメッセージ</p>
+    </div>
+  </div>
+
+  <div class="member-body">
+
+    <!-- CEO -->
+    <div class="ceo-card reveal">
+      <p class="ceo-badge">Representative Director</p>
+      <h2>代表取締役社長より<br><span class="grad">挑戦し続ける組織へ</span></h2>
+      <div class="ceo-text">
+        <p>私たちPylex Groupは常に上を目指し、新しい常識、前例がないのなら作り上げる組織です。私たちは「若さ」を武器にし、「デジタルでビジネスの新しい当たり前をつくる。」という会社理念を掲げております。</p>
+        <p>現代において、ビジネスの在り方は大きく変化しています。SNSやデジタルの力によって、個人でも企業でも大きな影響力を持つことができる時代になりました。しかしその一方で、正しい知識や戦略がなければ、その可能性を最大限に活かすことはできません。私たちは、そうしたデジタル領域における"機会の格差"をなくし、誰もが挑戦し、成果を出せる環境を創り出したいと考えています。</p>
+        <p>また、Pylex Groupは単なるサービス提供者ではなく、クライアントと同じ目線で課題に向き合い、共に成長していくパートナーであり続けます。まだ立ち上げフェーズの若い組織ではありますが、スピードと行動力、そして挑戦を恐れない姿勢で、常に進化し続けます。</p>
+        <p>一人ひとりの可能性を最大化し、社会に新しい価値を提供する。それが私たちPylex Groupの使命です。今後とも、何卒よろしくお願い申し上げます。</p>
+      </div>
+      <div class="ceo-sig">Pylex Group — 代表取締役</div>
+    </div>
+
+    <!-- Member cards -->
+    <div class="member-cards">
+
+      <div class="member-card reveal">
+        <div class="member-card-head">
+          <div class="member-avatar">🎬</div>
+          <div class="member-info-head">
+            <div class="member-role">Creative Division — Chief</div>
+            <div class="member-name">クリエイティブ事業部 主任</div>
           </div>
-          <p class="div-desc">イベント運営・クラブ運営・大規模イベント企画。SNSとリアルを融合した体験型エンターテイメントを創出します。</p>
-          <span class="div-tag">Entertainment</span>
         </div>
+        <p class="member-text">私たちクリエイティブ事業部は、生活の一部となりつつあるAIを活用し、動画制作やSNS運用、企業PR動画、Webサイト制作を展開しています。トレンドを捉えたコンテンツで企業の魅力を最大限に引き出し、ブランド価値の向上に貢献していきます。主任として、常に結果に向き合い、その一つひとつの成果に責任を持ち、企業価値の向上につながる価値あるものを提供し続けてまいります。</p>
       </div>
 
     </div>
   </div>
-</section>
 
-<!-- CONTACT -->
-<section class="light" id="contact">
-  <div class="contact-wrap">
-    <div class="contact-box reveal-scale">
-      <h2>お問い合わせ</h2>
-      <p>
-        事業提携・インフルエンサー登録・お仕事のご依頼など、<br>
-        お気軽にご連絡ください。
-      </p>
-      <div class="contact-buttons">
-        <a href="https://docs.google.com/forms/d/e/YOUR_FORM_ID/viewform" target="_blank" class="contact-btn google">
-          <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-          Googleフォームで問い合わせる
-        </a>
-        <p class="divider-text">または</p>
-        <a href="mailto:info.pylexlegend@gmail.com" class="contact-btn mail">
-          <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-          info.pylexlegend@gmail.com
-        </a>
-        <p class="divider-text">SNSでも受け付けています</p>
-        <a href="https://www.instagram.com/pylexgroup" target="_blank" class="contact-btn insta">
-          <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-          InstagramのDMで問い合わせる
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
+  <footer><div class="footer-logo"><img src="logo.png" alt="Pylex Group"></div><p>© 2025 Pylex Group. All rights reserved.</p></footer>
+</div>
 
-<!-- FOOTER -->
-<footer>
-  <div class="footer-logo">
-    <img src="logo.png" alt="Pylex Group">
-  </div>
-  <p>© 2025 Pylex Group. All rights reserved.</p>
-</footer>
 
 <script>
-  // Intersection Observer for scroll reveal
-  const targets = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
-      }
+  // ===== PAGE ROUTING =====
+  function showPage(pageId) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    const target = document.getElementById('page-' + pageId);
+    if (target) {
+      target.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      // Re-trigger reveal animations for the new page
+      setTimeout(initReveal, 100);
+    }
+  }
+
+  function showDetail(divId) {
+    showPage('detail-' + divId);
+  }
+
+  function scrollToSection(id) {
+    setTimeout(() => {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }, 100);
+  }
+
+  // ===== SCROLL REVEAL =====
+  function initReveal() {
+    const targets = document.querySelectorAll('.page.active .reveal, .page.active .reveal-left, .page.active .reveal-right, .page.active .reveal-scale');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    targets.forEach(el => {
+      el.classList.remove('visible');
+      observer.observe(el);
     });
-  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-  targets.forEach(el => observer.observe(el));
+  }
+
+  // Init on load
+  initReveal();
 </script>
 </body>
 </html>
